@@ -1,0 +1,62 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Scaramouche">
+  <defs>
+    <radialGradient id="disc" cx="50%" cy="42%" r="62%">
+      <stop offset="0%" stop-color="#15131f"></stop>
+      <stop offset="100%" stop-color="#070709"></stop>
+    </radialGradient>
+    <linearGradient id="ringG" x1="22" y1="20" x2="98" y2="102" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffffff"></stop>
+      <stop offset="0.45" stop-color="#ddd2ff"></stop>
+      <stop offset="1" stop-color="#9d86f5"></stop>
+    </linearGradient>
+    <linearGradient id="ringG2" x1="98" y1="24" x2="26" y2="100" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#c9bcff"></stop>
+      <stop offset="1" stop-color="#7c4ff0"></stop>
+    </linearGradient>
+    <linearGradient id="waveG" x1="44" y1="34" x2="76" y2="86" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffffff"></stop>
+      <stop offset="0.55" stop-color="#e4dbff"></stop>
+      <stop offset="1" stop-color="#b7a3ff"></stop>
+    </linearGradient>
+    <filter id="soft" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="2.6" result="b"></feGaussianBlur>
+      <feMerge><feMergeNode in="b"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
+    </filter>
+  </defs>
+
+  
+
+  
+  <circle cx="60" cy="60" r="32" fill="url(#disc)"></circle>
+
+  
+  <g filter="url(#soft)">
+    <g class="ringA">
+      <path d="M60 15 C77 13 91 24 97 41 C103 57 110 73 98 88 C87 102 68 102 51 99 C33 96 17 86 15 66 C13 47 21 30 37 21 C44 17 52 16 60 15 Z" fill="none" stroke="url(#ringG)" stroke-width="6" stroke-linejoin="round" opacity="0.9"></path>
+    </g>
+    <g class="ringB">
+      <path d="M60 19 C74 17 88 27 93 43 C99 60 101 75 90 87 C80 98 66 97 52 95 C36 92 23 84 20 67 C17 51 25 34 39 26 C46 22 53 20 60 19 Z" fill="none" stroke="url(#ringG2)" stroke-width="3.4" stroke-linejoin="round" opacity="0.6"></path>
+    </g>
+  </g>
+
+  
+  <g fill="url(#waveG)">
+    <circle cx="38" cy="60" r="2.6" class="pt"></circle>
+    <circle cx="82" cy="60" r="2.6" class="pt" style="animation-delay:-1.7s"></circle>
+    <rect x="44.6" y="51" width="4" height="18" rx="2" class="bar b1"></rect>
+    <rect x="71.4" y="51" width="4" height="18" rx="2" class="bar b2"></rect>
+    <rect x="52.2" y="44" width="4" height="32" rx="2" class="bar b3"></rect>
+    <rect x="63.8" y="44" width="4" height="32" rx="2" class="bar b4"></rect>
+    <circle cx="60" cy="38" r="2.8" class="pt" style="animation-delay:-.8s"></circle>
+    <rect x="58" y="46" width="4" height="28" rx="2" class="bar bc"></rect>
+    <circle cx="60" cy="82" r="2.8" class="pt" style="animation-delay:-2.4s"></circle>
+  </g>
+
+  
+  <g fill="#cabfff">
+    <circle cx="100" cy="34" r="2.1" class="pt" style="animation-delay:-.4s"></circle>
+    <circle cx="24" cy="44" r="1.7" class="pt" style="animation-delay:-1.5s"></circle>
+    <circle cx="28" cy="92" r="2" class="pt" style="animation-delay:-2.1s"></circle>
+    <circle cx="96" cy="92" r="1.7" class="pt" style="animation-delay:-3s"></circle>
+  </g>
+</svg>
