@@ -181,6 +181,14 @@ body::after{content:'';position:fixed;inset:0;z-index:-2;background-image:linear
 .form-success svg{width:56px;height:56px;color:#4ade80;margin:0 auto 16px}
 .form-success h4{font-size:20px;font-weight:700;margin-bottom:8px}
 .form-success p{font-size:14.5px;color:var(--text-2)}
+
+/* ====== Sales Calculator ====== */
+.calc-wrap{margin-top:24px;border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--surface);overflow:hidden}.calc-wrap.is-open{border-color:var(--accent-strong);box-shadow:0 24px 60px -28px var(--glow)}.calc-trigger{width:100%;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:28px 32px;background:transparent;border:0;cursor:pointer;text-align:left;color:inherit;font:inherit}.calc-trigger:hover{background:var(--surface-2)}.calc-trigger-l h3{font-size:26px;letter-spacing:-.02em;margin:10px 0 6px}.calc-trigger-l p{font-size:14px;color:var(--text-2);max-width:60ch}.calc-badge{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.08em;padding:5px 12px;border-radius:999px;background:var(--grad);color:#fff}.calc-trigger-r{display:flex;align-items:center;gap:18px;flex:0 0 auto}.calc-trigger-price{font-size:22px;font-weight:800;letter-spacing:-.02em;white-space:nowrap}.calc-trigger-price small{font-size:13px;font-weight:500;color:var(--text-3);margin-left:2px}.calc-chev{width:40px;height:40px;border-radius:50%;border:1px solid var(--border-2);display:grid;place-items:center;transition:transform .3s var(--ease),border-color .2s}.calc-chev svg{width:20px;height:20px}.calc-wrap.is-open .calc-chev{transform:rotate(180deg);border-color:var(--accent-strong)}
+.calc-panel{border-top:1px solid var(--border);padding:28px 32px 32px}.calc-grid{display:grid;grid-template-columns:1.55fr 1fr;gap:28px;align-items:start}@media(max-width:880px){.calc-grid{grid-template-columns:1fr}}.calc-block{padding:20px 0;border-bottom:1px solid var(--border)}.calc-block:first-child{padding-top:4px}.calc-block:last-child{border-bottom:0;padding-bottom:0}.calc-block-head{display:flex;align-items:center;gap:10px}.calc-block-head h4{font-size:16px;letter-spacing:-.01em}.calc-hint{font-size:13px;color:var(--text-2);margin:6px 0 14px;max-width:56ch}.calc-range{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:999px;background:linear-gradient(90deg,var(--violet-500) 0%,var(--violet-500) var(--fill,40%),var(--surface-2) var(--fill,40%));outline:none}.calc-range::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:22px;height:22px;border-radius:50%;background:var(--grad);border:3px solid var(--bg);box-shadow:0 4px 14px -2px var(--glow);cursor:pointer}.calc-range::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:#8b5cf6;border:3px solid var(--bg);cursor:pointer}.calc-range-scale{display:flex;justify-content:space-between;font-size:12px;color:var(--text-3);margin-top:8px}
+.calc-opts{display:flex;flex-wrap:wrap;gap:10px}.calc-opt{display:inline-flex;align-items:center;gap:9px;padding:11px 15px;border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;transition:border-color .2s,background .2s;user-select:none}.calc-opt:hover{border-color:var(--border-2);background:var(--surface-2)}.calc-opt input{position:absolute;opacity:0;width:0;height:0}.calc-opt-label{font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:7px}.calc-box{width:19px;height:19px;border-radius:6px;border:2px solid var(--border-2);display:grid;place-items:center;flex:0 0 auto;transition:border-color .15s,background .15s}.calc-box::after{content:'';width:10px;height:10px;border-radius:3px;background:var(--grad);transform:scale(0);transition:transform .15s var(--ease)}.calc-opt input:checked~.calc-box,.calc-addon input:checked~.calc-box{border-color:var(--accent-strong)}.calc-opt input:checked~.calc-box::after,.calc-addon input:checked~.calc-box::after{transform:scale(1)}.calc-opt:has(input:checked){border-color:var(--accent-strong);background:linear-gradient(180deg,rgba(139,92,246,.10),transparent)}
+.calc-addon{display:inline-flex;align-items:center;gap:9px;padding:11px 14px;border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;transition:border-color .2s,background .2s}.calc-addon:hover{border-color:var(--border-2);background:var(--surface-2)}.calc-addon input{position:absolute;opacity:0;width:0;height:0}.calc-addon-name{font-size:14px;font-weight:600}.calc-addon:has(input:checked){border-color:var(--accent-strong);background:linear-gradient(180deg,rgba(139,92,246,.10),transparent)}.calc-addons{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:520px){.calc-addons{grid-template-columns:1fr}}
+.calc-stepper{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--border);border-radius:999px;padding:4px}.calc-step{width:38px;height:38px;border-radius:50%;border:0;background:var(--surface-2);color:var(--text);font-size:22px;line-height:1;cursor:pointer;transition:background .2s}.calc-step:hover{background:var(--violet-500);color:#fff}.calc-step-val{min-width:86px;text-align:center;font-size:14px;font-weight:700}
+.calc-summary{position:sticky;top:96px}.calc-summary-inner{border:1px solid var(--border-2);border-radius:var(--radius);padding:26px 24px;background:linear-gradient(180deg,rgba(139,92,246,.10),transparent),var(--glass);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}.calc-sum-eyebrow{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}.calc-total{font-size:46px;font-weight:800;letter-spacing:-.03em;margin:6px 0 18px}.calc-total small{font-size:16px;font-weight:500;color:var(--text-3);letter-spacing:0;margin-left:4px}.calc-breakdown{list-style:none;display:flex;flex-direction:column;gap:9px;margin:0 0 22px}.calc-breakdown li{display:flex;justify-content:space-between;gap:12px;font-size:13.5px;color:var(--text-2);padding-bottom:9px;border-bottom:1px solid var(--border)}.calc-breakdown li span:last-child{font-weight:700;color:var(--text);white-space:nowrap}.calc-breakdown li.calc-br-muted span:last-child{color:var(--text-3);font-weight:600}.calc-cta{width:100%}.calc-note{font-size:12px;color:var(--text-3);margin-top:14px;line-height:1.5}
 </style>
 </head>
 <body>
@@ -318,6 +326,94 @@ body::after{content:'';position:fixed;inset:0;z-index:-2;background-image:linear
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>Персональный онбординг</li>
           </ul>
           <button class="btn btn-ghost" onclick="openModal('Custom')">Обсудить проект</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SALES CALCULATOR (кастомный тариф) ===== -->
+    <div class="calc-wrap reveal" id="calculator">
+      <button class="calc-trigger" type="button" aria-expanded="false" aria-controls="calc-panel">
+        <div class="calc-trigger-l">
+          <span class="calc-badge">НАСТРАИВАЕМЫЙ ТАРИФ</span>
+          <h3>Sales Calculator</h3>
+          <p>Соберите тариф под свою воронку: лиды, каналы поиска и модули. Стоимость пересчитывается в реальном времени — вы платите ровно за то, что выбрали.</p>
+        </div>
+        <div class="calc-trigger-r">
+          <span class="calc-trigger-price">от&nbsp;$<span data-mini-total>515</span><small>/ мес</small></span>
+          <span class="calc-chev" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+          </span>
+        </div>
+      </button>
+
+      <div class="calc-panel" id="calc-panel" hidden>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="calc-block">
+              <div class="calc-block-head">
+                <h4>Объём лидов в месяц</h4>
+                <span style="margin-left:auto;font-size:13px;font-weight:700;color:var(--accent)"><span data-leads-out>2 000</span> лидов</span>
+              </div>
+              <p class="calc-hint">Каждый обогащённый и верифицированный лид — <span data-lead-price>$0.20</span>. Двигайте ползунок: правее — больше пайплайна.</p>
+              <input class="calc-range" type="range" id="calc-leads" min="250" max="50000" step="250" value="2000">
+              <div class="calc-range-scale"><span>250</span><span>50 000</span></div>
+            </div>
+
+            <div class="calc-block">
+              <div class="calc-block-head">
+                <h4>Каналы поиска</h4>
+              </div>
+              <p class="calc-hint">Выберите, на скольких площадках агент будет искать лиды одновременно. $15 за канал, пакет «Все» — $290.</p>
+              <div class="calc-opts" role="radiogroup">
+                <label class="calc-opt"><input type="radio" name="channels" value="1" checked><span class="calc-box"></span><span class="calc-opt-label">1 канал</span></label>
+                <label class="calc-opt"><input type="radio" name="channels" value="3"><span class="calc-box"></span><span class="calc-opt-label">3 канала</span></label>
+                <label class="calc-opt"><input type="radio" name="channels" value="6"><span class="calc-box"></span><span class="calc-opt-label">6 каналов</span></label>
+                <label class="calc-opt"><input type="radio" name="channels" value="12"><span class="calc-box"></span><span class="calc-opt-label">12 каналов</span></label>
+                <label class="calc-opt"><input type="radio" name="channels" value="all"><span class="calc-box"></span><span class="calc-opt-label">Все доступные</span></label>
+              </div>
+            </div>
+
+            <div class="calc-block">
+              <div class="calc-block-head">
+                <h4>Дополнительные модули</h4>
+                <span style="margin-left:auto;font-size:13px;font-weight:600;color:var(--text-2);">$75 за модуль</span>
+              </div>
+              <p class="calc-hint">Отметьте модули, которые усилят вашу воронку.</p>
+              <div class="calc-addons">
+                <label class="calc-addon"><input type="checkbox" class="calc-addon-cb" value="AI Audit"><span class="calc-box"></span><span class="calc-addon-name">AI Audit</span></label>
+                <label class="calc-addon"><input type="checkbox" class="calc-addon-cb" value="Lead Scoring"><span class="calc-box"></span><span class="calc-addon-name">Lead Scoring</span></label>
+                <label class="calc-addon"><input type="checkbox" class="calc-addon-cb" value="Pain Points"><span class="calc-box"></span><span class="calc-addon-name">Pain Points</span></label>
+                <label class="calc-addon"><input type="checkbox" class="calc-addon-cb" value="Analytics"><span class="calc-box"></span><span class="calc-addon-name">Analytics</span></label>
+                <label class="calc-addon"><input type="checkbox" class="calc-addon-cb" value="CRM Sync"><span class="calc-box"></span><span class="calc-addon-name">CRM Sync</span></label>
+                <label class="calc-addon"><input type="checkbox" class="calc-addon-cb" value="Personalization"><span class="calc-box"></span><span class="calc-addon-name">Personalization</span></label>
+                <label class="calc-addon"><input type="checkbox" class="calc-addon-cb" value="Follow-up"><span class="calc-box"></span><span class="calc-addon-name">Follow-up</span></label>
+                <label class="calc-addon"><input type="checkbox" class="calc-addon-cb" value="White Label"><span class="calc-box"></span><span class="calc-addon-name">White Label</span></label>
+              </div>
+            </div>
+
+            <div class="calc-block">
+              <div class="calc-block-head">
+                <h4>Пользователи в команде</h4>
+                <span style="margin-left:auto;font-size:13px;font-weight:600;color:var(--text-2);">1-й — бесплатно</span>
+              </div>
+              <p class="calc-hint">Первый пользователь включён в тариф. Каждое дополнительное место — $20 в месяц.</p>
+              <div class="calc-stepper">
+                <button type="button" class="calc-step" data-step="-1" aria-label="Убрать пользователя">−</button>
+                <span class="calc-step-val"><span data-users-out>1</span> чел.</span>
+                <button type="button" class="calc-step" data-step="1" aria-label="Добавить пользователя">+</button>
+              </div>
+            </div>
+          </div>
+
+          <aside class="calc-summary">
+            <div class="calc-summary-inner">
+              <div class="calc-sum-eyebrow">Ваш тариф</div>
+              <div class="calc-total">$<span data-total>515</span><small>/ мес</small></div>
+              <ul class="calc-breakdown" data-breakdown></ul>
+              <button class="btn btn-primary calc-cta" type="button" onclick="openModal('Custom')">Оформить этот тариф</button>
+              <p class="calc-note">Итог рассчитан автоматически по выбранным параметрам. Финальная стоимость фиксируется в договоре.</p>
+            </div>
+          </aside>
         </div>
       </div>
     </div>
@@ -461,6 +557,120 @@ body::after{content:'';position:fixed;inset:0;z-index:-2;background-image:linear
   /* Year */
   var y = document.querySelector('[data-year]');
   if (y) y.textContent = new Date().getFullYear();
+
+  /* ====== Sales Calculator ====== */
+  (function () {
+    var wrap = document.getElementById('calculator');
+    if (!wrap) return;
+    var LEAD_PRICE_USD = 0.2, CHANNEL_PRICE = 15, ALL_CHANNELS_PRICE = 290, ADDON_PRICE = 75, USER_PRICE = 20;
+    var RATE = 90;
+    var trigger = wrap.querySelector('.calc-trigger');
+    var panel = document.getElementById('calc-panel');
+    var leadsInput = document.getElementById('calc-leads');
+    var leadsOut = wrap.querySelector('[data-leads-out]');
+    var usersOut = wrap.querySelector('[data-users-out]');
+    var totalOut = wrap.querySelector('[data-total]');
+    var miniTotal = wrap.querySelector('[data-mini-total]');
+    var breakdown = wrap.querySelector('[data-breakdown]');
+    var leadPriceSpan = wrap.querySelector('[data-lead-price]');
+    var users = 1;
+    function fmt(n) { return Number(n).toLocaleString('ru-RU'); }
+    function money(n, isCurrency) {
+      var lang = window.__currentLang || 'ru';
+      if (lang === 'ru' && isCurrency !== 'usd') {
+        var rub = Math.round(n * RATE);
+        return rub.toLocaleString('ru-RU') + ' ₽';
+      }
+      return '$' + (Math.round(n * 100) / 100).toLocaleString('ru-RU', { maximumFractionDigits: 2 });
+    }
+    function moneyLabel(n, label, isCurrency) {
+      var lang = window.__currentLang || 'ru';
+      if (lang === 'ru' && isCurrency !== 'usd') {
+        var pricePerUnit = n === 0.2 ? (0.2 * RATE) : n;
+        return label + ' × ' + (Math.round(pricePerUnit * 100) / 100) + ' ₽';
+      }
+      var priceStr = (Math.round(n * 100) / 100).toLocaleString('ru-RU', { maximumFractionDigits: 2 });
+      return label + ' × $' + priceStr;
+    }
+    function selectedChannels() { var r = wrap.querySelector('input[name="channels"]:checked'); return r ? r.value : '1'; }
+    function updateCalcDisplay() {
+      var lang = window.__currentLang || 'ru';
+      if (leadPriceSpan) {
+        if (lang === 'ru') {
+          var rubPerLead = Math.round(LEAD_PRICE_USD * RATE * 100) / 100;
+          leadPriceSpan.textContent = rubPerLead + ' ₽';
+        } else {
+          leadPriceSpan.textContent = '$' + LEAD_PRICE_USD.toFixed(2);
+        }
+      }
+    }
+    function update() {
+      var lang = window.__currentLang || 'ru';
+      var isCurrency = lang === 'en' ? 'usd' : 'rub';
+      var leads = parseInt(leadsInput.value, 10) || 0;
+      var leadPrice = LEAD_PRICE_USD;
+      var leadsCost = leads * leadPrice;
+      var ch = selectedChannels(), channelsCost, channelsLabel;
+      if (ch === 'all') { channelsCost = ALL_CHANNELS_PRICE; channelsLabel = lang === 'ru' ? 'Все доступные каналы' : 'All available channels'; }
+      else { var n = parseInt(ch, 10); channelsCost = n * CHANNEL_PRICE; var label = lang === 'ru' ? (n === 1 ? ' канал' : (n < 5 ? ' канала' : ' каналов')) : ' channel' + (n > 1 ? 's' : ''); channelsLabel = n + label; }
+      var addons = wrap.querySelectorAll('.calc-addon-cb:checked');
+      var addonsCost = addons.length * ADDON_PRICE;
+      var extraUsers = Math.max(0, users - 1);
+      var usersCost = extraUsers * USER_PRICE;
+      var total = leadsCost + channelsCost + addonsCost + usersCost;
+      leadsOut.textContent = fmt(leads);
+      usersOut.textContent = users;
+      var pct = (leads - leadsInput.min) / (leadsInput.max - leadsInput.min) * 100;
+      leadsInput.style.setProperty('--fill', pct + '%');
+      var rows = '';
+      var leadLabel = lang === 'ru' ? 'лидов' : 'leads';
+      rows += '<li><span>' + fmt(leads) + ' ' + leadLabel + ' × ' + (lang === 'ru' ? (Math.round(LEAD_PRICE_USD * RATE * 100) / 100) + ' ₽' : '$' + LEAD_PRICE_USD.toFixed(2)) + '</span><span>' + money(leadsCost, isCurrency) + '</span></li>';
+      rows += '<li><span>' + channelsLabel + '</span><span>' + money(channelsCost, isCurrency) + '</span></li>';
+      if (addons.length) {
+        var names = Array.prototype.map.call(addons, function (a) { return a.value; }).join(', ');
+        var addonLabel = lang === 'ru' ? 'Модули' : 'Modules';
+        rows += '<li><span>' + addonLabel + ' (' + addons.length + '): ' + names + '</span><span>' + money(addonsCost, isCurrency) + '</span></li>';
+      } else {
+        var addonLabel = lang === 'ru' ? 'Доп. модули' : 'Add-on modules';
+        var notSelected = lang === 'ru' ? 'не выбрано' : 'not selected';
+        rows += '<li class="calc-br-muted"><span>' + addonLabel + '</span><span>' + notSelected + '</span></li>';
+      }
+      if (extraUsers > 0) {
+        var userLabel = lang === 'ru' ? 'пользов.' : 'users';
+        rows += '<li><span>+' + extraUsers + ' ' + userLabel + ' × ' + (lang === 'ru' ? (Math.round(USER_PRICE * RATE * 100) / 100) + ' ₽' : '$' + USER_PRICE) + '</span><span>' + money(usersCost, isCurrency) + '</span></li>';
+      }
+      else {
+        var userLabel = lang === 'ru' ? 'пользователь' : 'user';
+        var free = lang === 'ru' ? 'бесплатно' : 'free';
+        rows += '<li class="calc-br-muted"><span>1 ' + userLabel + '</span><span>' + free + '</span></li>';
+      }
+      breakdown.innerHTML = rows;
+      var totalRounded = Math.round(total);
+      totalOut.textContent = money(totalRounded, isCurrency).replace(/\s₽/, '').replace('$', '');
+      if (miniTotal) miniTotal.textContent = money(totalRounded, isCurrency).replace(/\s₽/, '').replace('$', '');
+    }
+    if (trigger && panel) {
+      trigger.addEventListener('click', function () {
+        var open = wrap.classList.toggle('is-open');
+        trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        panel.hidden = !open;
+      });
+    }
+    wrap.querySelectorAll('.calc-step').forEach(function (b) {
+      b.addEventListener('click', function () {
+        users = Math.max(1, Math.min(99, users + parseInt(b.getAttribute('data-step'), 10)));
+        update();
+      });
+    });
+    if (leadsInput) leadsInput.addEventListener('input', update);
+    wrap.querySelectorAll('input[name="channels"], .calc-addon-cb').forEach(function (el) {
+      el.addEventListener('change', update);
+    });
+    update();
+    updateCalcDisplay();
+    window.__origCalcUpdate = update;
+    window.__origCalcDisplay = updateCalcDisplay;
+  })();
 })();
 
 /* ====== Modal ====== */
@@ -694,6 +904,8 @@ document.addEventListener('keydown', function (e) {
       originals.forEach(function (original, node) { if (node.parentNode) node.textContent = original; });
       document.title = 'Тарифы — Scaramouche AI SDR | Dacher Forge';
     }
+    if (window.__origCalcUpdate) window.__origCalcUpdate();
+    if (window.__origCalcDisplay) window.__origCalcDisplay();
   }
 
   window.__toggleLang = function () { applyLang(currentLang === 'ru' ? 'en' : 'ru'); };
