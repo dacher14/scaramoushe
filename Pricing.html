@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Тарифы — Scaramouche AI SDR | Dacher Forge</title>
+<meta name="description" content="Тарифы Scaramouche — автономного AI SDR-агента. 6 планов для команд любого размера.">
+<link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YJXRT1Z82N"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-YJXRT1Z82N');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* ---------- Tokens ---------- */
+:root {
+  --violet-50:#f4f1ff;--violet-200:#d8cbff;--violet-300:#c4b5fd;--violet-400:#a78bfa;--violet-500:#8b5cf6;--violet-600:#7c4ff0;
+  --grad: linear-gradient(135deg, #c4b5fd 0%, #8b5cf6 55%, #6d4ce0 100%);
+  --grad-soft: linear-gradient(135deg, rgba(196,181,253,.9), rgba(139,92,246,.9));
+  --grad-text: linear-gradient(120deg, #ffffff 0%, #d8cbff 45%, #a78bfa 100%);
+  --radius:18px;--radius-lg:28px;--radius-sm:12px;--maxw:1200px;
+  --ease: cubic-bezier(.16,.84,.34,1);
+  --font:'Manrope',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,'SF Mono',monospace;
+}
+:root,[data-theme="dark"]{
+  --bg:#0c0c13;--bg-2:#121220;
+  --surface:rgba(255,255,255,0.045);--surface-2:rgba(255,255,255,0.075);
+  --border:rgba(255,255,255,0.10);--border-2:rgba(255,255,255,0.16);
+  --text:#f1f1f6;--text-2:#b8b8c8;--text-3:#82829a;
+  --accent:#cbbdff;--accent-strong:#b7a3ff;
+  --grad-text:linear-gradient(120deg,#fff 0%,#ddd2ff 45%,#b7a3ff 100%);
+  --glass:rgba(20,20,30,0.62);--shadow:0 30px 70px -28px rgba(0,0,0,0.6);
+  --glow:rgba(139,92,246,0.26);--grid-line:rgba(255,255,255,0.035);
+}
+[data-theme="light"]{
+  --bg:#fafaff;--bg-2:#f1f0fb;
+  --surface:rgba(109,63,214,0.04);--surface-2:rgba(109,63,214,0.07);
+  --border:rgba(28,22,55,0.10);--border-2:rgba(28,22,55,0.15);
+  --text:#17132a;--text-2:#514c69;--text-3:#847fa0;
+  --accent:#6d3fd6;--accent-strong:#7c4ff0;
+  --grad-text:linear-gradient(120deg,#5b34c9 0%,#7c4ff0 50%,#a855f7 100%);
+  --glass:rgba(255,255,255,0.72);--shadow:0 30px 70px -30px rgba(80,60,160,0.18);
+  --glow:rgba(124,79,240,0.18);--grid-line:rgba(28,22,55,0.045);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background .4s var(--ease),color .4s var(--ease)}
+a{color:inherit;text-decoration:none}img,svg{display:block;max-width:100%}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+::selection{background:var(--violet-500);color:#fff}
+body::before{content:'';position:fixed;inset:0;z-index:-2;background:radial-gradient(65% 55% at 50% -8%,rgba(139,92,246,.14),transparent 62%),radial-gradient(45% 45% at 100% 8%,rgba(124,79,240,.09),transparent 72%);pointer-events:none}
+body::after{content:'';position:fixed;inset:0;z-index:-2;background-image:linear-gradient(var(--grid-line) 1px,transparent 1px),linear-gradient(90deg,var(--grid-line) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(circle at 50% 30%,#000 0%,transparent 75%);pointer-events:none}
+
+.container{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.section-pad{padding:120px 0}
+@media(max-width:768px){.section-pad{padding:80px 0}}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);padding:6px 14px;border-radius:999px;border:1px solid var(--border-2);background:var(--surface)}
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--violet-400);box-shadow:0 0 10px var(--violet-400)}
+.section-head{max-width:720px;margin:0 auto 64px;text-align:center}
+.section-head h2{font-size:clamp(28px,4vw,46px);line-height:1.1;letter-spacing:-.02em;font-weight:700;margin:18px 0 16px}
+.section-head p{font-size:clamp(16px,1.6vw,19px);color:var(--text-2)}
+.grad-text{background:var(--grad-text);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-size:15px;font-weight:600;padding:13px 22px;border-radius:12px;transition:transform .25s var(--ease),box-shadow .25s var(--ease),background .25s,border-color .25s;white-space:nowrap;line-height:1}
+.btn svg{width:17px;height:17px}
+.btn-primary{background:var(--grad);color:#fff;box-shadow:0 8px 24px -6px var(--glow),inset 0 1px 0 rgba(255,255,255,.25)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 34px -6px var(--glow),inset 0 1px 0 rgba(255,255,255,.3)}
+.btn-ghost{background:var(--surface);color:var(--text);border:1px solid var(--border-2);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.btn-ghost:hover{background:var(--surface-2);transform:translateY(-2px);border-color:var(--accent-strong)}
+.btn-lg{padding:16px 28px;font-size:16px}
+
+/* Nav */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--glass);-webkit-backdrop-filter:blur(18px) saturate(160%);backdrop-filter:blur(18px) saturate(160%);border-bottom:1px solid var(--border)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:17px;letter-spacing:-.01em}
+.brand img{width:38px;height:38px;padding:3px;border-radius:11px;background:radial-gradient(circle at 50% 45%,#15131f 0%,#0a0a10 100%);box-shadow:inset 0 0 0 1px rgba(183,163,255,.16),0 4px 14px -6px rgba(124,79,240,.5)}
+.brand small{display:block;font-size:11px;font-weight:500;color:var(--text-3);letter-spacing:.04em;line-height:1}
+.nav-actions{display:flex;align-items:center;gap:10px}
+.lang-toggle{width:38px;height:38px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--text-2);font-size:12px;font-weight:700;letter-spacing:.04em;display:grid;place-items:center;transition:color .2s,border-color .2s;font-family:var(--font)}
+.lang-toggle:hover{color:var(--accent);border-color:var(--accent-strong)}
+.theme-toggle{width:38px;height:38px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--text-2);display:grid;place-items:center;transition:color .2s,border-color .2s,transform .2s}
+.theme-toggle:hover{color:var(--accent);border-color:var(--accent-strong);transform:rotate(15deg)}
+.theme-toggle svg{width:18px;height:18px}
+.theme-toggle .moon{display:none}
+[data-theme="light"] .theme-toggle .moon{display:block}
+[data-theme="light"] .theme-toggle .sun{display:none}
+.back-link{display:inline-flex;align-items:center;gap:8px;font-size:14px;color:var(--text-2);font-weight:500;padding:8px 14px;border-radius:9px;transition:color .2s,background .2s}
+.back-link:hover{color:var(--text);background:var(--surface)}
+.back-link svg{width:16px;height:16px}
+
+/* ====== Pricing layout ====== */
+.pricing-grid{display:flex;flex-direction:column;gap:20px}
+.pricing-row{display:grid;gap:16px}
+.pricing-row.top{grid-template-columns:repeat(3,1fr)}
+.pricing-row.mid{grid-template-columns:1fr}
+.pricing-row.bot{grid-template-columns:repeat(2,1fr)}
+
+@media(max-width:900px){
+  .pricing-row.top{grid-template-columns:1fr 1fr}
+  .pricing-row.bot{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+  .pricing-row.top{grid-template-columns:1fr}
+}
+
+.plan{border:1px solid var(--border);border-radius:var(--radius-lg);padding:28px;background:var(--surface);display:flex;flex-direction:column;position:relative;transition:transform .3s var(--ease),border-color .3s}
+.plan:hover{transform:translateY(-4px)}
+.plan.pop{border-color:var(--accent-strong);background:linear-gradient(180deg,rgba(139,92,246,.10),transparent);box-shadow:0 20px 50px -20px var(--glow)}
+.plan .pop-tag{position:absolute;top:12px;left:50%;transform:translateX(-50%);background:var(--grad);color:#fff;font-size:11.5px;font-weight:700;letter-spacing:.08em;padding:5px 14px;border-radius:999px;white-space:nowrap;z-index:1}
+.plan.pop{padding-top:44px}
+.plan .pname{font-size:14px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--accent)}
+.plan .price{font-size:38px;font-weight:800;letter-spacing:-.03em;margin:14px 0 2px}
+.plan .price small{font-size:15px;font-weight:500;color:var(--text-3);letter-spacing:0}
+.plan .pdesc{font-size:13.5px;color:var(--text-2);min-height:36px}
+.plan ul{list-style:none;display:flex;flex-direction:column;gap:11px;margin:20px 0;flex:1}
+.plan li{display:flex;gap:10px;font-size:14px;align-items:flex-start}
+.plan li svg{flex:0 0 17px;width:17px;height:17px;color:var(--accent-strong);margin-top:2px}
+.plan .btn{width:100%}
+
+/* Featured Pro — horizontal on desktop */
+.plan-featured{display:grid;grid-template-columns:1fr 1fr;gap:0;padding:0;overflow:hidden}
+.plan-featured .pf-left{padding:36px 32px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid var(--border)}
+.plan-featured .pf-right{padding:36px 32px;display:flex;flex-direction:column}
+.plan-featured .pf-right ul{columns:2;gap:10px}
+.plan-featured .pf-right li{break-inside:avoid}
+@media(max-width:700px){
+  .plan-featured{grid-template-columns:1fr}
+  .plan-featured .pf-left{border-right:none;border-bottom:1px solid var(--border)}
+  .plan-featured .pf-right ul{columns:1}
+}
+
+/* FAQ */
+.faq{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.faq-item{border:1px solid var(--border);border-radius:14px;background:var(--surface);overflow:hidden}
+.faq-q{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 24px;cursor:pointer;font-weight:600;font-size:15.5px;transition:background .2s}
+.faq-q:hover{background:var(--surface-2)}
+.faq-q svg{width:20px;height:20px;color:var(--text-3);transition:transform .3s;flex-shrink:0}
+.faq-item.open .faq-q svg{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.faq-item.open .faq-a{max-height:300px}
+.faq-a-inner{padding:0 24px 20px;font-size:14.5px;color:var(--text-2);line-height:1.65}
+
+/* CTA */
+.cta-band{border:1px solid var(--border-2);border-radius:var(--radius-lg);padding:64px 40px;text-align:center;position:relative;overflow:hidden;background:var(--glass);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px)}
+.cta-band::before{content:'';position:absolute;inset:auto 0 -60% 0;height:100%;background:var(--grad);filter:blur(80px);opacity:.2}
+.cta-band h2{font-size:clamp(26px,4vw,42px);letter-spacing:-.03em;line-height:1.08;position:relative}
+.cta-band p{color:var(--text-2);max-width:540px;margin:18px auto 0;position:relative;font-size:17px}
+.cta-band .cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:28px;position:relative}
+
+/* Footer */
+.footer{border-top:1px solid var(--border);padding:36px 0}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.footer-inner span{font-size:13px;color:var(--text-3)}
+.footer-inner a{font-size:13px;color:var(--text-2);transition:color .2s}
+.footer-inner a:hover{color:var(--accent)}
+
+/* Reveal */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* ====== Modal ====== */
+.modal-overlay{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;padding:24px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.modal-overlay.open{display:flex}
+.modal{width:100%;max-width:520px;max-height:90vh;overflow-y:auto;background:var(--bg-2);border:1px solid var(--border-2);border-radius:var(--radius-lg);padding:36px;position:relative;box-shadow:0 40px 80px -20px rgba(0,0,0,.5)}
+.modal-close{position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--text-2);display:grid;place-items:center;transition:color .2s,border-color .2s}
+.modal-close:hover{color:var(--accent);border-color:var(--accent-strong)}
+.modal-close svg{width:18px;height:18px}
+.modal h3{font-size:22px;font-weight:700;margin-bottom:6px}
+.modal .modal-sub{font-size:14px;color:var(--text-2);margin-bottom:28px}
+.form-group{display:flex;flex-direction:column;gap:6px;margin-bottom:18px}
+.form-group label{font-size:13px;font-weight:600;color:var(--text-2);letter-spacing:.02em}
+.form-group input,.form-group select,.form-group textarea{
+  font-family:var(--font);font-size:15px;padding:12px 14px;border-radius:12px;border:1px solid var(--border-2);background:var(--surface);color:var(--text);transition:border-color .2s;outline:none;width:100%;
+}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--accent-strong);box-shadow:0 0 0 3px rgba(139,92,246,.15)}
+.form-group textarea{resize:vertical;min-height:80px}
+.form-group select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%2382829a' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
+.form-success{text-align:center;padding:40px 20px}
+.form-success svg{width:56px;height:56px;color:#4ade80;margin:0 auto 16px}
+.form-success h4{font-size:20px;font-weight:700;margin-bottom:8px}
+.form-success p{font-size:14.5px;color:var(--text-2)}
+
+/* ====== Sales Calculator ====== */
+.calc-wrap{margin-top:24px;border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--surface);overflow:hidden}.calc-wrap.is-open{border-color:var(--accent-strong);box-shadow:0 24px 60px -28px var(--glow)}.calc-trigger{width:100%;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:28px 32px;background:transparent;border:0;cursor:pointer;text-align:left;color:inherit;font:inherit}.calc-trigger:hover{background:var(--surface-2)}.calc-trigger-l h3{font-size:26px;letter-spacing:-.02em;margin:10px 0 6px}.calc-trigger-l p{font-size:14px;color:var(--text-2);max-width:60ch}.calc-badge{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.08em;padding:5px 12px;border-radius:999px;background:var(--grad);color:#fff}.calc-trigger-r{display:flex;align-items:center;gap:18px;flex:0 0 auto}.calc-trigger-price{font-size:22px;font-weight:800;letter-spacing:-.02em;white-space:nowrap}.calc-trigger-price small{font-size:13px;font-weight:500;color:var(--text-3);margin-left:2px}.calc-chev{width:40px;height:40px;border-radius:50%;border:1px solid var(--border-2);display:grid;place-items:center;transition:transform .3s var(--ease),border-color .2s}.calc-chev svg{width:20px;height:20px}.calc-wrap.is-open .calc-chev{transform:rotate(180deg);border-color:var(--accent-strong)}
+.calc-panel{border-top:1px solid var(--border);padding:28px 32px 32px}.calc-grid{display:grid;grid-template-columns:1.55fr 1fr;gap:28px;align-items:start}@media(max-width:880px){.calc-grid{grid-template-columns:1fr}}.calc-block{padding:20px 0;border-bottom:1px solid var(--border)}.calc-block:first-child{padding-top:4px}.calc-block:last-child{border-bottom:0;padding-bottom:0}.calc-block-head{display:flex;align-items:center;gap:10px}.calc-block-head h4{font-size:16px;letter-spacing:-.01em}.calc-hint{font-size:13px;color:var(--text-2);margin:6px 0 14px;max-width:56ch}.calc-range{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:999px;background:linear-gradient(90deg,var(--violet-500) 0%,var(--violet-500) var(--fill,40%),var(--surface-2) var(--fill,40%));outline:none}.calc-range::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:22px;height:22px;border-radius:50%;background:var(--grad);border:3px solid var(--bg);box-shadow:0 4px 14px -2px var(--glow);cursor:pointer}.calc-range::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:#8b5cf6;border:3px solid var(--bg);cursor:pointer}.calc-range-scale{display:flex;justify-content:space-between;font-size:12px;color:var(--text-3);margin-top:8px}
+.calc-opts{display:flex;flex-wrap:wrap;gap:10px}.calc-opt{display:inline-flex;align-items:center;gap:9px;padding:11px 15px;border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;transition:border-color .2s,background .2s;user-select:none}.calc-opt:hover{border-color:var(--border-2);background:var(--surface-2)}.calc-opt input{position:absolute;opacity:0;width:0;height:0}.calc-opt-label{font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:7px}.calc-box{width:19px;height:19px;border-radius:6px;border:2px solid var(--border-2);display:grid;place-items:center;flex:0 0 auto;transition:border-color .15s,background .15s}.calc-box::after{content:'';width:10px;height:10px;border-radius:3px;background:var(--grad);transform:scale(0);transition:transform .15s var(--ease)}.calc-opt input:checked~.calc-box,.calc-addon input:checked~.calc-box{border-color:var(--accent-strong)}.calc-opt input:checked~.calc-box::after,.calc-addon input:checked~.calc-box::after{transform:scale(1)}.calc-opt:has(input:checked){border-color:var(--accent-strong);background:linear-gradient(180deg,rgba(139,92,246,.10),transparent)}
+.calc-addon{display:inline-flex;align-items:center;gap:9px;padding:11px 14px;border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;transition:border-color .2s,background .2s}.calc-addon:hover{border-color:var(--border-2);background:var(--surface-2)}.calc-addon input{position:absolute;opacity:0;width:0;height:0}.calc-addon-name{font-size:14px;font-weight:600}.calc-addon:has(input:checked){border-color:var(--accent-strong);background:linear-gradient(180deg,rgba(139,92,246,.10),transparent)}.calc-addons{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:520px){.calc-addons{grid-template-columns:1fr}}
+.calc-stepper{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--border);border-radius:999px;padding:4px}.calc-step{width:38px;height:38px;border-radius:50%;border:0;background:var(--surface-2);color:var(--text);font-size:22px;line-height:1;cursor:pointer;transition:background .2s}.calc-step:hover{background:var(--violet-500);color:#fff}.calc-step-val{min-width:86px;text-align:center;font-size:14px;font-weight:700}
+.calc-summary{position:sticky;top:96px}.calc-summary-inner{border:1px solid var(--border-2);border-radius:var(--radius);padding:26px 24px;background:linear-gradient(180deg,rgba(139,92,246,.10),transparent),var(--glass);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}.calc-sum-eyebrow{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}.calc-total{font-size:46px;font-weight:800;letter-spacing:-.03em;margin:6px 0 18px}.calc-total small{font-size:16px;font-weight:500;color:var(--text-3);letter-spacing:0;margin-left:4px}.calc-breakdown{list-style:none;display:flex;flex-direction:column;gap:9px;margin:0 0 22px}.calc-breakdown li{display:flex;justify-content:space-between;gap:12px;font-size:13.5px;color:var(--text-2);padding-bottom:9px;border-bottom:1px solid var(--border)}.calc-breakdown li span:last-child{font-weight:700;color:var(--text);white-space:nowrap}.calc-breakdown li.calc-br-muted span:last-child{color:var(--text-3);font-weight:600}.calc-cta{width:100%}.calc-note{font-size:12px;color:var(--text-3);margin-top:14px;line-height:1.5}
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="index.html" class="brand">
+      <img src="assets/logo.svg" alt="Scaramouche" width="38" height="38">
+      <div>Scaramouche<small>by Dacher Forge</small></div>
+    </a>
+    <div class="nav-actions">
+      <a href="index.html" class="back-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        На главную
+      </a>
+      <button class="lang-toggle" aria-label="Switch language" onclick="window.__toggleLang&&window.__toggleLang()">RU</button>
+      <button class="theme-toggle" aria-label="Сменить тему">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.73 12.73 1.41 1.41M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.41-1.41"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Pricing Hero -->
+<section class="section-pad" style="padding-top:140px;">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow"><span class="dot"></span>Тарифы</span>
+      <h2>Стоимость команды SDR — без команды SDR</h2>
+      <p>Прозрачные планы, которые масштабируются вместе с вашим пайплайном.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <!-- Row 1: Trial, Starter, Growth -->
+      <div class="pricing-row top">
+        <div class="plan reveal">
+          <div class="pname">Trial</div>
+          <div class="price" data-usd="0" data-period-ru="/ 14 дней" data-period-en="/ 14 days">$0<small>/ 14 дней</small></div>
+          <p class="pdesc">Попробуйте бесплатно — без обязательств.</p>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>150 лидов</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>2 канала охвата</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>Базовый AI скоринг</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>Базовая модель</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>14 дней доступа</li>
+          </ul>
+          <button class="btn btn-ghost" onclick="openModal('Trial')">Начать бесплатно</button>
+        </div>
+
+        <div class="plan reveal">
+          <div class="pname">Starter</div>
+          <div class="price" data-usd="99" data-period-ru="/ мес" data-period-en="/ mo">$99<small>/ мес</small></div>
+          <p class="pdesc">Первый шаг к автоматизации исходящих продаж.</p>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>1 000 лидов</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>4 канала охвата</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>Бот в Telegram</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>AI аудит бизнеса</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>Lead scoring</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>Google Sheets экспорт</li>
+          </ul>
+          <button class="btn btn-ghost" onclick="openModal('Starter')">Выбрать Starter</button>
+        </div>
+
+        <div class="plan reveal">
+          <div class="pname">Growth</div>
+          <div class="price" data-usd="249" data-period-ru="/ мес" data-period-en="/ mo">$249<small>/ мес</small></div>
+          <p class="pdesc">Продвинутая персонализация и глубокий анализ.</p>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>2 000 лидов</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>5+ каналов поиска</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>Ускоренная работа</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>AI анализ сайта</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>AI pain points</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>Pro outreach-сообщения</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>CRM экспорт</li>
+          </ul>
+          <button class="btn btn-ghost" onclick="openModal('Growth')">Выбрать Growth</button>
+        </div>
+      </div>
+
+      <!-- Row 2: Pro (featured, full-width horizontal) -->
+      <div class="pricing-row mid">
+        <div class="plan pop plan-featured reveal">
+          <div class="pop-tag">ЛУЧШИЙ ВЫБОР</div>
+          <div class="pf-left">
+            <div class="pname">Pro</div>
+            <div class="price" data-usd="490" data-period-ru="/ мес" data-period-en="/ mo">$490<small>/ мес</small></div>
+            <p class="pdesc">Полностью автономный AI SDR — максимальная конверсия. Это тот тариф, который выбирают 80% наших клиентов.</p>
+            <button class="btn btn-primary btn-lg" style="margin-top:20px" onclick="openModal('Pro')">Заказать демо</button>
+          </div>
+          <div class="pf-right">
+            <ul>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>5 000 лидов</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>10+ каналов поиска</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>Доступ к базе данных</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>Автономный AI SDR</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>AI персонализация</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>Автопоиск лидов</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>CRM синхронизация</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>Автоматические follow-up</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>Приоритетная поддержка</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 3: Scale + Custom -->
+      <div class="pricing-row bot">
+        <div class="plan reveal">
+          <div class="pname">Scale</div>
+          <div class="price" data-usd="999" data-period-ru="/ мес" data-period-en="/ mo">$999<small>/ мес</small></div>
+          <p class="pdesc">Для больших команд и агрессивного роста.</p>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>12 000 лидов</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>Неограниченные каналы</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>Командный доступ</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>White-label отчёты</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>Несколько воронок</li>
+          </ul>
+          <button class="btn btn-ghost" onclick="openModal('Scale')">Связаться с нами</button>
+        </div>
+
+        <div class="plan reveal">
+          <div class="pname">Custom</div>
+          <div class="price">Custom</div>
+          <p class="pdesc">Индивидуальное решение под ваш бизнес. Кастомные интеграции, SLA, SSO, выделенный менеджер.</p>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>Неограниченный объём лидов</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>Несколько команд и пространств</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>SSO, кастомные интеграции, SLA</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>Выделенный менеджер успеха</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>Персональный онбординг</li>
+          </ul>
+          <button class="btn btn-ghost" onclick="openModal('Custom')">Обсудить проект</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SALES CALCULATOR (кастомный тариф) ===== -->
+    <div class="calc-wrap reveal" id="calculator">
+      <button class="calc-trigger" type="button" aria-expanded="false" aria-controls="calc-panel">
+        <div class="calc-trigger-l">
+          <span class="calc-badge">НАСТРАИВАЕМЫЙ ТАРИФ</span>
+          <h3>Sales Calculator</h3>
+          <p>Соберите тариф под свою воронку: лиды, каналы поиска и модули. Стоимость пересчитывается в реальном времени — вы платите ровно за то, что выбрали.</p>
+        </div>
+        <div class="calc-trigger-r">
+          <span class="calc-trigger-price">от&nbsp;$<span data-mini-total>515</span><small>/ мес</small></span>
+          <span class="calc-chev" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+          </span>
+        </div>
+      </button>
+
+      <div class="calc-panel" id="calc-panel" hidden>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="calc-block">
+              <div class="calc-block-head">
+                <h4>Объём лидов в месяц</h4>
+                <span style="margin-left:auto;font-size:13px;font-weight:700;color:var(--accent)"><span data-leads-out>2 000</span> лидов</span>
+              </div>
+              <p class="calc-hint">Каждый обогащённый и верифицированный лид — <span data-lead-price>$0.20</span>. Двигайте ползунок: правее — больше пайплайна.</p>
+              <input class="calc-range" type="range" id="calc-leads" min="250" max="50000" step="250" value="2000">
+              <div class="calc-range-scale"><span>250</span><span>50 000</span></div>
+            </div>
+
+            <div class="calc-block">
+              <div class="calc-block-head">
+                <h4>Каналы поиска</h4>
+              </div>
+              <p class="calc-hint">Выберите, на скольких площадках агент будет искать лиды одновременно. $15 за канал, пакет «Все» — $290.</p>
+              <div class="calc-opts" role="radiogroup">
+                <label class="calc-opt"><input type="radio" name="channels" value="1" checked><span class="calc-box"></span><span class="calc-opt-label">1 канал</span></label>
+                <label class="calc-opt"><input type="radio" name="channels" value="3"><span class="calc-box"></span><span class="calc-opt-label">3 канала</span></label>
+                <label class="calc-opt"><input type="radio" name="channels" value="6"><span class="calc-box"></span><span class="calc-opt-label">6 каналов</span></label>
+                <label class="calc-opt"><input type="radio" name="channels" value="12"><span class="calc-box"></span><span class="calc-opt-label">12 каналов</span></label>
+                <label class="calc-opt"><input type="radio" name="channels" value="all"><span class="calc-box"></span><span class="calc-opt-label">Все доступные</span></label>
+              </div>
+            </div>
+
+            <div class="calc-block">
+              <div class="calc-block-head">
+                <h4>Дополнительные модули</h4>
+                <span style="margin-left:auto;font-size:13px;font-weight:600;color:var(--text-2);">$75 за модуль</span>
+              </div>
+              <p class="calc-hint">Отметьте модули, которые усилят вашу воронку.</p>
+              <div class="calc-addons">
+                <label class="calc-addon"><input type="checkbox" class="calc-addon-cb" value="AI Audit"><span class="calc-box"></span><span class="calc-addon-name">AI Audit</span></label>
+                <label class="calc-addon"><input type="checkbox" class="calc-addon-cb" value="Lead Scoring"><span class="calc-box"></span><span class="calc-addon-name">Lead Scoring</span></label>
+                <label class="calc-addon"><input type="checkbox" class="calc-addon-cb" value="Pain Points"><span class="calc-box"></span><span class="calc-addon-name">Pain Points</span></label>
+                <label class="calc-addon"><input type="checkbox" class="calc-addon-cb" value="Analytics"><span class="calc-box"></span><span class="calc-addon-name">Analytics</span></label>
+                <label class="calc-addon"><input type="checkbox" class="calc-addon-cb" value="CRM Sync"><span class="calc-box"></span><span class="calc-addon-name">CRM Sync</span></label>
+                <label class="calc-addon"><input type="checkbox" class="calc-addon-cb" value="Personalization"><span class="calc-box"></span><span class="calc-addon-name">Personalization</span></label>
+                <label class="calc-addon"><input type="checkbox" class="calc-addon-cb" value="Follow-up"><span class="calc-box"></span><span class="calc-addon-name">Follow-up</span></label>
+                <label class="calc-addon"><input type="checkbox" class="calc-addon-cb" value="White Label"><span class="calc-box"></span><span class="calc-addon-name">White Label</span></label>
+              </div>
+            </div>
+
+            <div class="calc-block">
+              <div class="calc-block-head">
+                <h4>Пользователи в команде</h4>
+                <span style="margin-left:auto;font-size:13px;font-weight:600;color:var(--text-2);">1-й — бесплатно</span>
+              </div>
+              <p class="calc-hint">Первый пользователь включён в тариф. Каждое дополнительное место — $20 в месяц.</p>
+              <div class="calc-stepper">
+                <button type="button" class="calc-step" data-step="-1" aria-label="Убрать пользователя">−</button>
+                <span class="calc-step-val"><span data-users-out>1</span> чел.</span>
+                <button type="button" class="calc-step" data-step="1" aria-label="Добавить пользователя">+</button>
+              </div>
+            </div>
+          </div>
+
+          <aside class="calc-summary">
+            <div class="calc-summary-inner">
+              <div class="calc-sum-eyebrow">Ваш тариф</div>
+              <div class="calc-total">$<span data-total>515</span><small>/ мес</small></div>
+              <ul class="calc-breakdown" data-breakdown></ul>
+              <button class="btn btn-primary calc-cta" type="button" onclick="openModal('Custom')">Оформить этот тариф</button>
+              <p class="calc-note">Итог рассчитан автоматически по выбранным параметрам. Финальная стоимость фиксируется в договоре.</p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section-pad" style="padding-top:0;">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2>Частые вопросы</h2>
+    </div>
+    <div class="faq">
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Что входит в бесплатный период?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+        <div class="faq-a"><div class="faq-a-inner">14 дней полного доступа к Trial-функциональности: 150 лидов, 2 канала охвата, базовый AI скоринг. Кредитная карта не требуется.</div></div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Можно ли сменить тариф?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+        <div class="faq-a"><div class="faq-a-inner">Да, в любой момент. Мы сохраняем все ваши данные, настройки ICP и историю кампаний при миграции.</div></div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Есть ли скидка при годовой оплате?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+        <div class="faq-a"><div class="faq-a-inner">Да, при годовой подписке действует скидка 20%. Напишите нам, и мы подготовим индивидуальное предложение.</div></div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Какие CRM поддерживаются?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+        <div class="faq-a"><div class="faq-a-inner">HubSpot, Salesforce и Pipedrive — нативные интеграции. Через Zapier/Make можно подключить любую другую CRM.</div></div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Данные в безопасности?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+        <div class="faq-a"><div class="faq-a-inner">Да. Шифрование в хранении и передаче, изоляция данных, соответствие GDPR. Enterprise-план включает SSO и аудит-логи.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section-pad" style="padding-top:0;">
+  <div class="container">
+    <div class="cta-band reveal">
+      <h2 class="grad-text">Готовы запустить AI SDR?</h2>
+      <p>Забронируйте демо или начните бесплатно — запуск за один день.</p>
+      <div class="cta-btns">
+        <button class="btn btn-primary btn-lg" onclick="openModal('Pro')">Заказать демо</button>
+        <a href="index.html" class="btn btn-ghost btn-lg">Вернуться на главную</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container footer-inner">
+    <span>© <span data-year>2026</span> Dacher Forge. Все права защищены.</span>
+    <a href="index.html">← Главная</a>
+  </div>
+</footer>
+
+<!-- ====== MODAL ====== -->
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal" id="modalContent">
+    <button class="modal-close" onclick="closeModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    <div id="modalForm">
+      <h3>Заявка на доступ</h3>
+      <p class="modal-sub">Заполните форму и мы свяжемся с вами в течение 24 часов.</p>
+      <div class="form-group">
+        <label for="f-name">Ваше имя *</label>
+        <input type="text" id="f-name" placeholder="Александр" required>
+      </div>
+      <div class="form-group">
+        <label for="f-email">Email *</label>
+        <input type="email" id="f-email" placeholder="alex@company.com" required>
+      </div>
+      <div class="form-group">
+        <label for="f-plan">Тариф</label>
+        <select id="f-plan">
+          <option value="Trial">Trial — $0</option>
+          <option value="Starter">Starter — $99/мес</option>
+          <option value="Growth">Growth — $249/мес</option>
+          <option value="Pro" selected>Pro — $490/мес</option>
+          <option value="Scale">Scale — $999/мес</option>
+          <option value="Custom">Custom</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="f-expect">Что вы ожидаете от продукта?</label>
+        <textarea id="f-expect" placeholder="Расскажите о вашем бизнесе, целях и задачах..."></textarea>
+      </div>
+      <div class="form-group">
+        <label for="f-source">Откуда вы о нас узнали?</label>
+        <select id="f-source">
+          <option value="" disabled selected>Выберите вариант</option>
+          <option value="google">Google / поисковик</option>
+          <option value="linkedin">LinkedIn</option>
+          <option value="telegram">Telegram</option>
+          <option value="twitter">X (Twitter)</option>
+          <option value="youtube">YouTube</option>
+          <option value="reddit">Reddit</option>
+          <option value="friend">Рекомендация знакомого</option>
+          <option value="conference">Конференция / мероприятие</option>
+          <option value="ad">Реклама</option>
+          <option value="other">Другое</option>
+        </select>
+      </div>
+      <button class="btn btn-primary btn-lg" style="width:100%;margin-top:8px" onclick="submitForm()">Отправить заявку</button>
+    </div>
+    <div id="modalSuccess" style="display:none">
+      <div class="form-success">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+        <h4>Заявка отправлена!</h4>
+        <p>Мы свяжемся с вами на указанный email в течение 24 часов. Спасибо за интерес к Scaramouche!</p>
+        <button class="btn btn-ghost" style="margin-top:20px" onclick="closeModal()">Закрыть</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  /* Theme */
+  var root = document.documentElement;
+  var stored = localStorage.getItem('df-theme');
+  if (stored) root.setAttribute('data-theme', stored);
+  document.querySelector('.theme-toggle').addEventListener('click', function () {
+    var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('df-theme', next);
+  });
+  /* Reveal */
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.reveal').forEach(function (el, i) {
+    el.style.transitionDelay = (Math.min(i % 4, 3) * 70) + 'ms';
+    io.observe(el);
+  });
+  /* Year */
+  var y = document.querySelector('[data-year]');
+  if (y) y.textContent = new Date().getFullYear();
+
+  /* ====== Sales Calculator ====== */
+  (function () {
+    var wrap = document.getElementById('calculator');
+    if (!wrap) return;
+    var LEAD_PRICE_USD = 0.2, CHANNEL_PRICE = 15, ALL_CHANNELS_PRICE = 290, ADDON_PRICE = 75, USER_PRICE = 20;
+    var RATE = 90;
+    var trigger = wrap.querySelector('.calc-trigger');
+    var panel = document.getElementById('calc-panel');
+    var leadsInput = document.getElementById('calc-leads');
+    var leadsOut = wrap.querySelector('[data-leads-out]');
+    var usersOut = wrap.querySelector('[data-users-out]');
+    var totalOut = wrap.querySelector('[data-total]');
+    var miniTotal = wrap.querySelector('[data-mini-total]');
+    var breakdown = wrap.querySelector('[data-breakdown]');
+    var leadPriceSpan = wrap.querySelector('[data-lead-price]');
+    var users = 1;
+    function fmt(n) { return Number(n).toLocaleString('ru-RU'); }
+    function money(n, isCurrency) {
+      var lang = window.__currentLang || 'ru';
+      if (lang === 'ru' && isCurrency !== 'usd') {
+        var rub = Math.round(n * RATE);
+        return rub.toLocaleString('ru-RU') + ' ₽';
+      }
+      return '$' + (Math.round(n * 100) / 100).toLocaleString('ru-RU', { maximumFractionDigits: 2 });
+    }
+    function moneyLabel(n, label, isCurrency) {
+      var lang = window.__currentLang || 'ru';
+      if (lang === 'ru' && isCurrency !== 'usd') {
+        var pricePerUnit = n === 0.2 ? (0.2 * RATE) : n;
+        return label + ' × ' + (Math.round(pricePerUnit * 100) / 100) + ' ₽';
+      }
+      var priceStr = (Math.round(n * 100) / 100).toLocaleString('ru-RU', { maximumFractionDigits: 2 });
+      return label + ' × $' + priceStr;
+    }
+    function selectedChannels() { var r = wrap.querySelector('input[name="channels"]:checked'); return r ? r.value : '1'; }
+    function updateCalcDisplay() {
+      var lang = window.__currentLang || 'ru';
+      if (leadPriceSpan) {
+        if (lang === 'ru') {
+          var rubPerLead = Math.round(LEAD_PRICE_USD * RATE * 100) / 100;
+          leadPriceSpan.textContent = rubPerLead + ' ₽';
+        } else {
+          leadPriceSpan.textContent = '$' + LEAD_PRICE_USD.toFixed(2);
+        }
+      }
+    }
+    function update() {
+      var lang = window.__currentLang || 'ru';
+      var isCurrency = lang === 'en' ? 'usd' : 'rub';
+      var leads = parseInt(leadsInput.value, 10) || 0;
+      var leadPrice = LEAD_PRICE_USD;
+      var leadsCost = leads * leadPrice;
+      var ch = selectedChannels(), channelsCost, channelsLabel;
+      if (ch === 'all') { channelsCost = ALL_CHANNELS_PRICE; channelsLabel = lang === 'ru' ? 'Все доступные каналы' : 'All available channels'; }
+      else { var n = parseInt(ch, 10); channelsCost = n * CHANNEL_PRICE; var label = lang === 'ru' ? (n === 1 ? ' канал' : (n < 5 ? ' канала' : ' каналов')) : ' channel' + (n > 1 ? 's' : ''); channelsLabel = n + label; }
+      var addons = wrap.querySelectorAll('.calc-addon-cb:checked');
+      var addonsCost = addons.length * ADDON_PRICE;
+      var extraUsers = Math.max(0, users - 1);
+      var usersCost = extraUsers * USER_PRICE;
+      var total = leadsCost + channelsCost + addonsCost + usersCost;
+      leadsOut.textContent = fmt(leads);
+      usersOut.textContent = users;
+      var pct = (leads - leadsInput.min) / (leadsInput.max - leadsInput.min) * 100;
+      leadsInput.style.setProperty('--fill', pct + '%');
+      var rows = '';
+      var leadLabel = lang === 'ru' ? 'лидов' : 'leads';
+      rows += '<li><span>' + fmt(leads) + ' ' + leadLabel + ' × ' + (lang === 'ru' ? (Math.round(LEAD_PRICE_USD * RATE * 100) / 100) + ' ₽' : '$' + LEAD_PRICE_USD.toFixed(2)) + '</span><span>' + money(leadsCost, isCurrency) + '</span></li>';
+      rows += '<li><span>' + channelsLabel + '</span><span>' + money(channelsCost, isCurrency) + '</span></li>';
+      if (addons.length) {
+        var names = Array.prototype.map.call(addons, function (a) { return a.value; }).join(', ');
+        var addonLabel = lang === 'ru' ? 'Модули' : 'Modules';
+        rows += '<li><span>' + addonLabel + ' (' + addons.length + '): ' + names + '</span><span>' + money(addonsCost, isCurrency) + '</span></li>';
+      } else {
+        var addonLabel = lang === 'ru' ? 'Доп. модули' : 'Add-on modules';
+        var notSelected = lang === 'ru' ? 'не выбрано' : 'not selected';
+        rows += '<li class="calc-br-muted"><span>' + addonLabel + '</span><span>' + notSelected + '</span></li>';
+      }
+      if (extraUsers > 0) {
+        var userLabel = lang === 'ru' ? 'пользов.' : 'users';
+        rows += '<li><span>+' + extraUsers + ' ' + userLabel + ' × ' + (lang === 'ru' ? (Math.round(USER_PRICE * RATE * 100) / 100) + ' ₽' : '$' + USER_PRICE) + '</span><span>' + money(usersCost, isCurrency) + '</span></li>';
+      }
+      else {
+        var userLabel = lang === 'ru' ? 'пользователь' : 'user';
+        var free = lang === 'ru' ? 'бесплатно' : 'free';
+        rows += '<li class="calc-br-muted"><span>1 ' + userLabel + '</span><span>' + free + '</span></li>';
+      }
+      breakdown.innerHTML = rows;
+      var totalRounded = Math.round(total);
+      totalOut.textContent = money(totalRounded, isCurrency).replace(/\s₽/, '').replace('$', '');
+      if (miniTotal) miniTotal.textContent = money(totalRounded, isCurrency).replace(/\s₽/, '').replace('$', '');
+    }
+    if (trigger && panel) {
+      trigger.addEventListener('click', function () {
+        var open = wrap.classList.toggle('is-open');
+        trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        panel.hidden = !open;
+      });
+    }
+    wrap.querySelectorAll('.calc-step').forEach(function (b) {
+      b.addEventListener('click', function () {
+        users = Math.max(1, Math.min(99, users + parseInt(b.getAttribute('data-step'), 10)));
+        update();
+      });
+    });
+    if (leadsInput) leadsInput.addEventListener('input', update);
+    wrap.querySelectorAll('input[name="channels"], .calc-addon-cb').forEach(function (el) {
+      el.addEventListener('change', update);
+    });
+    update();
+    updateCalcDisplay();
+    window.__origCalcUpdate = update;
+    window.__origCalcDisplay = updateCalcDisplay;
+  })();
+})();
+
+/* ====== Modal ====== */
+function openModal(plan) {
+  document.getElementById('modalOverlay').classList.add('open');
+  document.getElementById('modalForm').style.display = '';
+  document.getElementById('modalSuccess').style.display = 'none';
+  document.getElementById('f-plan').value = plan;
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+var FORMSPREE_ID = 'xzdqgppz';
+
+function submitForm() {
+  var name  = document.getElementById('f-name').value.trim();
+  var email = document.getElementById('f-email').value.trim();
+  var plan  = document.getElementById('f-plan').value;
+  var expect = document.getElementById('f-expect').value.trim();
+  var source = document.getElementById('f-source').value;
+  var lang  = window.__currentLang || 'ru';
+
+  if (!name || !email) {
+    alert(lang === 'en' ? 'Please fill in your name and email.' : 'Пожалуйста, заполните имя и email.');
+    return;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    alert(lang === 'en' ? 'Please enter a valid email.' : 'Пожалуйста, введите корректный email.');
+    return;
+  }
+
+  var btn = document.querySelector('#modalForm .btn-primary');
+  btn.disabled = true;
+  btn.textContent = lang === 'en' ? 'Sending…' : 'Отправка…';
+
+  fetch('https://formspree.io/f/' + FORMSPREE_ID, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify({
+      name: name,
+      email: email,
+      plan: plan,
+      expectations: expect,
+      source: source,
+      _subject: '🚀 Новая заявка Scaramouche — ' + plan + ' (' + name + ')'
+    })
+  })
+  .then(function(r) { return r.json().then(function(d){ return {ok: r.ok, data: d}; }); })
+  .then(function(res) {
+    if (res.ok) {
+      document.getElementById('modalForm').style.display = 'none';
+      document.getElementById('modalSuccess').style.display = '';
+    } else {
+      btn.disabled = false;
+      btn.textContent = lang === 'en' ? 'Submit Request' : 'Отправить заявку';
+      alert(lang === 'en' ? 'Error sending. Please try again.' : 'Ошибка отправки. Попробуйте ещё раз.');
+    }
+  })
+  .catch(function() {
+    btn.disabled = false;
+    btn.textContent = lang === 'en' ? 'Submit Request' : 'Отправить заявку';
+    alert(lang === 'en' ? 'Network error. Please try again.' : 'Ошибка сети. Попробуйте ещё раз.');
+  });
+}
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') closeModal();
+});
+
+/* ====== Currency + i18n ====== */
+(function () {
+  var RATE = 90;
+  var rubPrices = { 0: '0', 99: '8 990', 249: '22 990', 490: '44 990', 999: '89 990' };
+  var dict = {
+    'Тарифы': 'Pricing',
+    'Стоимость команды SDR — без команды SDR': 'The cost of an SDR team — without the SDR team',
+    'Прозрачные планы, которые масштабируются вместе с вашим пайплайном.': 'Transparent plans that scale with your pipeline.',
+    'Попробуйте бесплатно — без обязательств.': 'Try for free — no commitment.',
+    'Первый шаг к автоматизации исходящих продаж.': 'First step to automating outbound sales.',
+    'Продвинутая персонализация и глубокий анализ.': 'Advanced personalization and deep analysis.',
+    'Полностью автономный AI SDR — максимальная конверсия. Это тот тариф, который выбирают 80% наших клиентов.': 'Fully autonomous AI SDR — maximum conversion. This is the plan chosen by 80% of our customers.',
+    'Для больших команд и агрессивного роста.': 'For large teams and aggressive growth.',
+    'Индивидуальное решение под ваш бизнес. Кастомные интеграции, SLA, SSO, выделенный менеджер.': 'Custom solution for your business. Custom integrations, SLA, SSO, dedicated manager.',
+    'ЛУЧШИЙ ВЫБОР': 'BEST VALUE',
+    '150 лидов': '150 leads', '2 канала охвата': '2 outreach channels',
+    'Базовый AI скоринг': 'Basic AI scoring', 'Базовая модель': 'Basic model',
+    '14 дней доступа': '14 days access',
+    '1 000 лидов': '1,000 leads', '4 канала охвата': '4 outreach channels',
+    'Бот в Telegram': 'Telegram bot', 'AI аудит бизнеса': 'AI business audit',
+    'Google Sheets экспорт': 'Google Sheets export',
+    '2 000 лидов': '2,000 leads', '5+ каналов поиска': '5+ search channels',
+    'Ускоренная работа': 'Accelerated processing', 'AI анализ сайта': 'AI website analysis',
+    'Pro outreach-сообщения': 'Pro outreach messages', 'CRM экспорт': 'CRM export',
+    '5 000 лидов': '5,000 leads', '10+ каналов поиска': '10+ search channels',
+    'Доступ к базе данных': 'Database access', 'Автономный AI SDR': 'Autonomous AI SDR',
+    'AI персонализация': 'AI personalization', 'Автопоиск лидов': 'Auto lead search',
+    'CRM синхронизация': 'CRM sync', 'Автоматические follow-up': 'Automatic follow-ups',
+    'Приоритетная поддержка': 'Priority support',
+    '12 000 лидов': '12,000 leads', 'Неограниченные каналы': 'Unlimited channels',
+    'Командный доступ': 'Team access', 'White-label отчёты': 'White-label reports',
+    'Несколько воронок': 'Multiple funnels',
+    'Неограниченный объём лидов': 'Unlimited lead volume',
+    'Несколько команд и пространств': 'Multiple teams and workspaces',
+    'SSO, кастомные интеграции, SLA': 'SSO, custom integrations, SLA',
+    'Выделенный менеджер успеха': 'Dedicated success manager',
+    'Персональный онбординг': 'Personal onboarding',
+    'Начать бесплатно': 'Start for Free', 'Выбрать Starter': 'Choose Starter',
+    'Выбрать Growth': 'Choose Growth', 'Заказать демо': 'Book a Demo',
+    'Связаться с нами': 'Contact Us', 'Обсудить проект': 'Discuss Your Project',
+    'На главную': 'Back to Home', 'Вернуться на главную': 'Back to Home',
+    '← Главная': '← Home', 'Все права защищены.': 'All rights reserved.',
+    'Частые вопросы': 'FAQ',
+    'Что входит в бесплатный период?': 'What\'s included in the free trial?',
+    '14 дней полного доступа к Trial-функциональности: 150 лидов, 2 канала охвата, базовый AI скоринг. Кредитная карта не требуется.': '14 days of full Trial access: 150 leads, 2 outreach channels, basic AI scoring. No credit card required.',
+    'Можно ли сменить тариф?': 'Can I change my plan?',
+    'Да, в любой момент. Мы сохраняем все ваши данные, настройки ICP и историю кампаний при миграции.': 'Yes, at any time. We preserve all your data, ICP settings, and campaign history.',
+    'Есть ли скидка при годовой оплате?': 'Is there a discount for annual billing?',
+    'Да, при годовой подписке действует скидка 20%. Напишите нам, и мы подготовим индивидуальное предложение.': 'Yes, annual subscriptions get a 20% discount. Write to us for a custom offer.',
+    'Какие CRM поддерживаются?': 'Which CRMs are supported?',
+    'HubSpot, Salesforce и Pipedrive — нативные интеграции. Через Zapier/Make можно подключить любую другую CRM.': 'HubSpot, Salesforce, and Pipedrive — native integrations. Connect any other CRM via Zapier/Make.',
+    'Данные в безопасности?': 'Is my data safe?',
+    'Да. Шифрование в хранении и передаче, изоляция данных, соответствие GDPR. Enterprise-план включает SSO и аудит-логи.': 'Yes. Encryption at rest and in transit, data isolation, GDPR compliance. Enterprise includes SSO and audit logs.',
+    'Готовы запустить AI SDR?': 'Ready to launch your AI SDR?',
+    'Забронируйте демо или начните бесплатно — запуск за один день.': 'Book a demo or start for free — launch in one day.',
+    '/ мес': '/ mo', '/ 14 дней': '/ 14 days',
+    'Заявка на доступ': 'Request Access',
+    'Заполните форму и мы свяжемся с вами в течение 24 часов.': 'Fill in the form and we\'ll contact you within 24 hours.',
+    'Ваше имя *': 'Your Name *', 'Email *': 'Email *', 'Тариф': 'Plan',
+    'Что вы ожидаете от продукта?': 'What do you expect from the product?',
+    'Расскажите о вашем бизнесе, целях и задачах...': 'Tell us about your business, goals, and objectives...',
+    'Откуда вы о нас узнали?': 'How did you hear about us?',
+    'Выберите вариант': 'Select an option',
+    'Google / поисковик': 'Google / Search',
+    'Рекомендация знакомого': 'Referral from a friend',
+    'Конференция / мероприятие': 'Conference / Event',
+    'Реклама': 'Advertising', 'Другое': 'Other',
+    'Отправить заявку': 'Submit Request',
+    'Заявка отправлена!': 'Request Sent!',
+    'Мы свяжемся с вами на указанный email в течение 24 часов. Спасибо за интерес к Scaramouche!': 'We\'ll contact you at the provided email within 24 hours. Thank you for your interest in Scaramouche!',
+    'Закрыть': 'Close'
+  };
+
+  var currentLang = localStorage.getItem('df-lang') || 'ru';
+  window.__currentLang = currentLang;
+  var originals = new Map();
+
+  function formatRub(usd) {
+    return (rubPrices[usd] || (usd * RATE).toLocaleString('ru-RU'));
+  }
+
+  function updatePrices(lang) {
+    document.querySelectorAll('.price[data-usd]').forEach(function (el) {
+      var usd = parseInt(el.getAttribute('data-usd'), 10);
+      var periodRu = el.getAttribute('data-period-ru') || '';
+      var periodEn = el.getAttribute('data-period-en') || '';
+      if (lang === 'ru') {
+        if (usd === 0) {
+          el.innerHTML = '0 ₽<small>' + periodRu + '</small>';
+        } else {
+          el.innerHTML = formatRub(usd) + ' ₽<small>' + periodRu + '</small>';
+        }
+      } else {
+        el.innerHTML = '$' + usd.toLocaleString('en-US') + '<small>' + periodEn + '</small>';
+      }
+    });
+    // Update select options
+    var sel = document.getElementById('f-plan');
+    if (sel) {
+      var plans = [
+        { val: 'Trial', usd: 0 },
+        { val: 'Starter', usd: 99 },
+        { val: 'Growth', usd: 249 },
+        { val: 'Pro', usd: 490 },
+        { val: 'Scale', usd: 999 },
+        { val: 'Custom', usd: -1 }
+      ];
+      plans.forEach(function (p, i) {
+        var label;
+        if (p.usd === -1) {
+          label = p.val + ' — Custom';
+        } else if (p.usd === 0) {
+          label = lang === 'ru'
+            ? p.val + ' — 0 ₽'
+            : p.val + ' — $0';
+        } else {
+          label = lang === 'ru'
+            ? p.val + ' — ' + formatRub(p.usd) + ' ₽/мес'
+            : p.val + ' — $' + p.usd + '/mo';
+        }
+        sel.options[i].textContent = label;
+      });
+    }
+  }
+
+  function collectTextNodes(root) {
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
+    var nodes = [];
+    while (walker.nextNode()) {
+      var n = walker.currentNode;
+      if (n.parentNode && (n.parentNode.tagName === 'SCRIPT' || n.parentNode.tagName === 'STYLE')) continue;
+      if (n.parentNode && n.parentNode.classList && n.parentNode.classList.contains('price')) continue;
+      if (n.textContent.trim().length > 0) nodes.push(n);
+    }
+    return nodes;
+  }
+
+  function applyLang(lang) {
+    currentLang = lang;
+    window.__currentLang = lang;
+    var btn = document.querySelector('.lang-toggle');
+    if (btn) btn.textContent = lang.toUpperCase();
+    localStorage.setItem('df-lang', lang);
+    document.documentElement.setAttribute('lang', lang);
+    updatePrices(lang);
+    if (lang === 'en') {
+      var textNodes = collectTextNodes(document.body);
+      textNodes.forEach(function (node) {
+        var txt = node.textContent;
+        if (!originals.has(node)) originals.set(node, txt);
+        var trimmed = txt.trim();
+        if (dict[trimmed]) { node.textContent = txt.replace(trimmed, dict[trimmed]); return; }
+        if (dict[txt]) { node.textContent = dict[txt]; return; }
+        var changed = txt;
+        var keys = Object.keys(dict).sort(function (a, b) { return b.length - a.length; });
+        keys.forEach(function (k) { if (changed.indexOf(k) !== -1) changed = changed.split(k).join(dict[k]); });
+        if (changed !== txt) node.textContent = changed;
+      });
+      document.title = 'Pricing — Scaramouche AI SDR | Dacher Forge';
+    } else {
+      originals.forEach(function (original, node) { if (node.parentNode) node.textContent = original; });
+      document.title = 'Тарифы — Scaramouche AI SDR | Dacher Forge';
+    }
+    if (window.__origCalcUpdate) window.__origCalcUpdate();
+    if (window.__origCalcDisplay) window.__origCalcDisplay();
+  }
+
+  window.__toggleLang = function () { applyLang(currentLang === 'ru' ? 'en' : 'ru'); };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () { applyLang(currentLang); });
+  } else { applyLang(currentLang); }
+})();
+</script>
+</body>
+</html>
