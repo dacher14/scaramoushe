@@ -255,6 +255,7 @@
 
   function applyLang(lang) {
     currentLang = lang;
+    window.__currentLang = lang;
     var btn = document.querySelector('.lang-toggle');
     if (btn) btn.textContent = lang.toUpperCase();
     localStorage.setItem('df-lang', lang);
@@ -318,6 +319,9 @@
   };
 
   /* ---------- Init on DOM ready ---------- */
+  // Allow ?lang=en / ?lang=ru to set language on load (makes hreflang truthful)
+  var urlLang = (new URLSearchParams(location.search)).get('lang');
+  if (urlLang === 'en' || urlLang === 'ru') currentLang = urlLang;
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () { applyLang(currentLang); });
   } else {

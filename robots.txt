@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /project/
+Disallow: /chats/
+
+Sitemap: https://dacher14.github.io/scaramoushe/sitemap.xml
