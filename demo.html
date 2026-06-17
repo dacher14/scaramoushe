@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scaramouche — живое демо AI SDR</title>
+<meta name="description" content="Посмотрите, как автономный AI SDR-агент Scaramouche находит сигналы, квалифицирует лид и пишет персональный outreach — в реальном времени.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --violet-200:#d8cbff;--violet-300:#c4b5fd;--violet-400:#a78bfa;--violet-500:#8b5cf6;--violet-600:#7c4ff0;
+  --grad:linear-gradient(135deg,#c4b5fd 0%,#8b5cf6 55%,#6d4ce0 100%);
+  --grad-text:linear-gradient(120deg,#fff 0%,#d8cbff 45%,#a78bfa 100%);
+  --bg:#0c0c13;--bg-2:#121220;--surface:rgba(255,255,255,.045);--surface-2:rgba(255,255,255,.075);
+  --border:rgba(255,255,255,.10);--border-2:rgba(255,255,255,.16);
+  --text:#f1f1f6;--text-2:#b9b6c8;--text-3:#7d7a8c;
+  --hot:#34d399;--warm:#fbbf24;--cold:#94a3b8;
+  --radius:18px;--radius-lg:26px;--radius-sm:12px;--maxw:1080px;
+  --font:'Manrope',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,'SF Mono',monospace;
+  --ease:cubic-bezier(.16,.84,.34,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:radial-gradient(1200px 600px at 80% -10%,rgba(124,79,240,.18),transparent 60%),var(--bg);color:var(--text);font-family:var(--font);line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:32px 20px 80px}
+a{color:var(--violet-300);text-decoration:none}
+
+/* header */
+.top{display:flex;align-items:center;gap:14px;margin-bottom:8px}
+.mark{width:44px;height:44px;border-radius:13px;background:var(--grad);display:grid;place-items:center;flex:0 0 auto;box-shadow:0 10px 30px -10px rgba(124,79,240,.7)}
+.mark .bars{display:flex;gap:3px;align-items:flex-end;height:20px}
+.mark .bars i{width:4px;background:#fff;border-radius:3px;display:block}
+.brand-name{font-weight:800;letter-spacing:-.02em;font-size:20px}
+.brand-sub{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--violet-300);text-transform:uppercase}
+h1{font-size:clamp(28px,4.4vw,46px);font-weight:800;letter-spacing:-.03em;margin:18px 0 6px;line-height:1.05;
+   background:var(--grad-text);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lede{color:var(--text-2);max-width:640px;font-size:16px}
+
+/* panels */
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:22px;margin-top:22px;backdrop-filter:blur(8px)}
+.panel-label{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-3);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--violet-400);box-shadow:0 0 10px var(--violet-400)}
+
+/* controls */
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.chip{font-size:13px;font-weight:600;padding:8px 14px;border-radius:999px;border:1px solid var(--border-2);background:var(--surface-2);color:var(--text-2);cursor:pointer;transition:.2s var(--ease)}
+.chip:hover{color:var(--text);border-color:var(--violet-500)}
+.chip.active{background:var(--grad);color:#fff;border-color:transparent}
+.field{flex:1 1 240px;min-width:200px}
+.field label{display:block;font-size:12px;color:var(--text-3);margin:0 0 6px 2px;font-weight:600}
+input[type=text],input[type=password],select{width:100%;background:var(--bg-2);border:1px solid var(--border-2);color:var(--text);
+  border-radius:var(--radius-sm);padding:12px 14px;font-family:var(--font);font-size:14px;outline:none;transition:.2s}
+input:focus,select:focus{border-color:var(--violet-500);box-shadow:0 0 0 3px rgba(139,92,246,.18)}
+.btn{appearance:none;border:0;cursor:pointer;font-family:var(--font);font-weight:700;font-size:15px;border-radius:var(--radius-sm);padding:13px 24px;transition:.2s var(--ease)}
+.btn-primary{background:var(--grad);color:#fff;box-shadow:0 12px 34px -12px rgba(124,79,240,.8)}
+.btn-primary:hover{transform:translateY(-2px)}
+.btn-primary:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.btn-ghost{background:var(--surface-2);color:var(--text-2);border:1px solid var(--border-2)}
+.btn-ghost:hover{color:var(--text)}
+.muted{color:var(--text-3);font-size:12.5px}
+
+/* live toggle */
+.livebar{display:flex;align-items:center;gap:10px;margin-top:14px;flex-wrap:wrap}
+.switch{position:relative;width:46px;height:26px;flex:0 0 auto}
+.switch input{opacity:0;width:0;height:0}
+.slider{position:absolute;inset:0;background:var(--surface-2);border:1px solid var(--border-2);border-radius:999px;transition:.2s}
+.slider::before{content:"";position:absolute;height:18px;width:18px;left:3px;top:3px;background:var(--text-2);border-radius:50%;transition:.2s}
+.switch input:checked+.slider{background:var(--grad);border-color:transparent}
+.switch input:checked+.slider::before{transform:translateX(20px);background:#fff}
+#liveOpts{display:none;margin-top:12px}
+#liveOpts.on{display:block}
+
+/* pipeline */
+.pipe{margin-top:24px;display:none}
+.pipe.on{display:block}
+.stage{display:flex;gap:16px;opacity:.35;filter:saturate(.5);transition:.45s var(--ease)}
+.stage.active,.stage.done{opacity:1;filter:none}
+.stage .rail{display:flex;flex-direction:column;align-items:center;flex:0 0 auto}
+.stage .ic{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:19px;background:var(--surface-2);border:1px solid var(--border-2);transition:.3s}
+.stage.active .ic{background:var(--grad);border-color:transparent;box-shadow:0 0 0 4px rgba(139,92,246,.18)}
+.stage.done .ic{border-color:var(--violet-500)}
+.stage .line{width:2px;flex:1;background:var(--border);margin:6px 0;min-height:18px}
+.stage:last-child .line{display:none}
+.stage .body{padding-bottom:22px;flex:1;min-width:0}
+.stage .st-title{font-weight:700;font-size:15px;display:flex;align-items:center;gap:10px}
+.stage .st-title .tag{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--text-3);text-transform:uppercase;border:1px solid var(--border);padding:2px 7px;border-radius:999px}
+.stage .content{margin-top:10px;font-size:14px;color:var(--text-2)}
+.stage .content.hidden{display:none}
+.thinking{display:inline-flex;gap:4px;align-items:center;color:var(--text-3);font-family:var(--mono);font-size:12px}
+.thinking i{width:5px;height:5px;border-radius:50%;background:var(--violet-400);animation:bl 1s infinite}
+.thinking i:nth-child(2){animation-delay:.15s}.thinking i:nth-child(3){animation-delay:.3s}
+@keyframes bl{0%,80%,100%{opacity:.25}40%{opacity:1}}
+ul.sig{list-style:none;display:flex;flex-direction:column;gap:8px}
+ul.sig li{background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:9px 12px;font-size:13.5px;color:var(--text);opacity:0;transform:translateY(6px);animation:rise .4s var(--ease) forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+.kv{display:grid;grid-template-columns:120px 1fr;gap:6px 12px;font-size:13.5px}
+.kv dt{color:var(--text-3)}.kv dd{color:var(--text)}
+.pains{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.pains span{font-size:12px;background:rgba(251,191,36,.10);border:1px solid rgba(251,191,36,.3);color:#fcd34d;padding:3px 9px;border-radius:999px}
+
+/* qualification */
+.qual{display:flex;gap:22px;flex-wrap:wrap;align-items:center}
+.ring{--p:0;width:108px;height:108px;border-radius:50%;flex:0 0 auto;
+  background:conic-gradient(var(--rc,var(--violet-500)) calc(var(--p)*1%),rgba(255,255,255,.08) 0);
+  display:grid;place-items:center;position:relative}
+.ring::before{content:"";position:absolute;inset:9px;border-radius:50%;background:var(--bg-2)}
+.ring b{position:relative;font-size:30px;font-weight:800}
+.ring small{position:relative;display:block;text-align:center;font-size:10px;color:var(--text-3);font-family:var(--mono)}
+.bars-q{flex:1 1 260px;min-width:240px;display:flex;flex-direction:column;gap:9px}
+.barq{font-size:12.5px}
+.barq .l{display:flex;justify-content:space-between;color:var(--text-2);margin-bottom:3px}
+.barq .t{height:7px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden}
+.barq .f{height:100%;width:0;background:var(--grad);border-radius:999px;transition:width .8s var(--ease)}
+.verdict{font-weight:800;font-size:18px;margin-top:4px}
+.reason{margin-top:10px;font-size:13.5px;color:var(--text-2);border-left:2px solid var(--violet-500);padding-left:12px}
+
+/* outreach */
+.tabs{display:inline-flex;background:var(--surface-2);border:1px solid var(--border-2);border-radius:999px;padding:3px;margin-bottom:10px}
+.tabs button{border:0;background:transparent;color:var(--text-3);font-family:var(--font);font-weight:700;font-size:12px;padding:6px 16px;border-radius:999px;cursor:pointer}
+.tabs button.active{background:var(--grad);color:#fff}
+.mailcard{background:var(--bg-2);border:1px solid var(--border-2);border-radius:14px;overflow:hidden}
+.mailhead{padding:11px 16px;border-bottom:1px solid var(--border);font-size:13px;color:var(--text-2)}
+.mailhead b{color:var(--text)}
+.mailbody{padding:16px;font-size:14.5px;white-space:pre-wrap;min-height:60px;line-height:1.6}
+.cursor::after{content:"▋";color:var(--violet-400);animation:bl 1s infinite}
+.followup{margin-top:10px;font-size:13px;color:var(--text-3)}
+.copybtn{float:right;font-size:11px;font-family:var(--mono);background:var(--surface-2);border:1px solid var(--border-2);color:var(--text-2);border-radius:7px;padding:4px 9px;cursor:pointer}
+
+/* action */
+.action{background:linear-gradient(180deg,rgba(52,211,153,.08),transparent);border:1px solid rgba(52,211,153,.25);border-radius:14px;padding:14px 16px;font-size:14px;display:flex;gap:10px;align-items:flex-start}
+
+/* ROI */
+.roi{margin-top:24px}
+.roi-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:760px){.roi-grid{grid-template-columns:1fr}.qual{justify-content:center}}
+.sld label{display:flex;justify-content:space-between;font-size:13px;color:var(--text-2);margin:14px 0 6px}
+.sld label b{color:var(--text)}
+input[type=range]{width:100%;accent-color:var(--violet-500)}
+.roi-out{background:var(--bg-2);border:1px solid var(--border-2);border-radius:16px;padding:20px;display:flex;flex-direction:column;justify-content:center;gap:8px}
+.bignum{font-size:34px;font-weight:800;background:var(--grad-text);-webkit-background-clip:text;background-clip:text;color:transparent}
+.roi-line{display:flex;justify-content:space-between;font-size:14px;color:var(--text-2);padding:4px 0;border-bottom:1px dashed var(--border)}
+.roi-line span:last-child{color:var(--text);font-weight:700;font-family:var(--mono)}
+
+.cta{margin-top:26px;text-align:center}
+.cta a{display:inline-block}
+footer{margin-top:40px;text-align:center;color:var(--text-3);font-size:12.5px}
+.badge-demo{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--violet-300);border:1px solid var(--border-2);padding:3px 9px;border-radius:999px;margin-left:8px}
+.err{color:#fca5a5;font-size:13px;margin-top:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="mark"><div class="bars"><i style="height:9px"></i><i style="height:18px"></i><i style="height:13px"></i></div></div>
+    <div>
+      <div class="brand-name">Scaramouche <span class="badge-demo" id="modeBadge">Demo</span></div>
+      <div class="brand-sub">Autonomous AI SDR · Dacher Forge</div>
+    </div>
+  </div>
+
+  <h1>Посмотрите, как агент работает</h1>
+  <p class="lede">Выберите компанию-лид — и Scaramouche в реальном времени найдёт сигналы, обогатит профиль, честно квалифицирует и напишет персональный outreach. Как живой SDR, только за секунды.</p>
+
+  <!-- INPUT -->
+  <div class="panel">
+    <div class="panel-label"><span class="dot"></span>Кого прорабатываем</div>
+    <div class="chips" id="chips"></div>
+    <div class="row">
+      <div class="field">
+        <label>Или впишите свою компанию</label>
+        <input type="text" id="company" placeholder="Напр. «Ozon», «сеть стоматологий», ваш клиент…">
+      </div>
+      <div class="field">
+        <label>Что вы продаёте (оффер)</label>
+        <input type="text" id="offer" value="Автоматизация продаж и AI-агенты (Dacher Forge)">
+      </div>
+      <button class="btn btn-primary" id="run">Запустить агента →</button>
+    </div>
+
+    <div class="livebar">
+      <label class="switch"><input type="checkbox" id="liveToggle"><span class="slider"></span></label>
+      <span class="muted"><b style="color:var(--text)">Live-режим</b> — подключить настоящий Claude и анализировать любую компанию</span>
+    </div>
+    <div id="liveOpts">
+      <div class="row" style="margin-top:4px">
+        <div class="field">
+          <label>Anthropic API-ключ (хранится только в этом браузере)</label>
+          <input type="password" id="apiKey" placeholder="sk-ant-...">
+        </div>
+        <div class="field" style="flex:0 0 220px">
+          <label>Модель</label>
+          <select id="model">
+            <option value="claude-sonnet-4-6">Claude Sonnet 4.6 (быстро)</option>
+            <option value="claude-haiku-4-5-20251001">Claude Haiku 4.5 (дёшево)</option>
+            <option value="claude-opus-4-8">Claude Opus 4.8 (умнее)</option>
+          </select>
+        </div>
+      </div>
+      <p class="muted" style="margin-top:8px">🔒 Ключ никуда не отправляется, кроме <span class="mono">api.anthropic.com</span> напрямую из браузера. Ключ можно получить в console.anthropic.com.</p>
+      <div class="err" id="err"></div>
+    </div>
+  </div>
+
+  <!-- PIPELINE -->
+  <div class="pipe" id="pipe">
+    <div class="panel">
+      <div class="panel-label"><span class="dot"></span>Агент в работе <span id="targetName" style="color:var(--violet-300);margin-left:6px"></span></div>
+
+      <div class="stage" data-k="prospect">
+        <div class="rail"><div class="ic">🔍</div><div class="line"></div></div>
+        <div class="body">
+          <div class="st-title">Поиск сигналов <span class="tag">prospecting</span></div>
+          <div class="content"></div>
+        </div>
+      </div>
+      <div class="stage" data-k="enrich">
+        <div class="rail"><div class="ic">🧠</div><div class="line"></div></div>
+        <div class="body">
+          <div class="st-title">Обогащение профиля <span class="tag">enrichment</span></div>
+          <div class="content"></div>
+        </div>
+      </div>
+      <div class="stage" data-k="qualify">
+        <div class="rail"><div class="ic">📊</div><div class="line"></div></div>
+        <div class="body">
+          <div class="st-title">Квалификация <span class="tag">scoring</span></div>
+          <div class="content"></div>
+        </div>
+      </div>
+      <div class="stage" data-k="outreach">
+        <div class="rail"><div class="ic">✍️</div><div class="line"></div></div>
+        <div class="body">
+          <div class="st-title">Персональный outreach <span class="tag">copywriting</span></div>
+          <div class="content"></div>
+        </div>
+      </div>
+      <div class="stage" data-k="action">
+        <div class="rail"><div class="ic">📅</div><div class="line"></div></div>
+        <div class="body">
+          <div class="st-title">Следующее действие <span class="tag">orchestration</span></div>
+          <div class="content"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROI -->
+  <div class="panel roi" id="roi" style="display:none">
+    <div class="panel-label"><span class="dot"></span>А что это даёт в деньгах</div>
+    <div class="roi-grid">
+      <div>
+        <div class="sld">
+          <label>SDR в штате <b id="vSdr">2</b></label>
+          <input type="range" id="sdr" min="1" max="10" value="2">
+          <label>Зарплата SDR, ₽/мес <b id="vSal">90 000</b></label>
+          <input type="range" id="sal" min="40000" max="250000" step="5000" value="90000">
+          <label>Тариф Scaramouche, ₽/мес <b id="vPlan">39 900</b></label>
+          <input type="range" id="plan" min="9900" max="120000" step="1000" value="39900">
+        </div>
+      </div>
+      <div class="roi-out">
+        <div class="muted">Экономия в год</div>
+        <div class="bignum" id="save">—</div>
+        <div class="roi-line"><span>SDR-отдел / мес (с налогами ×1.3)</span><span id="teamCost">—</span></div>
+        <div class="roi-line"><span>Scaramouche / мес</span><span id="planCost">—</span></div>
+        <div class="roi-line"><span>Окупаемость</span><span id="payback">—</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta" id="cta" style="display:none">
+    <a class="btn btn-primary" href="mailto:hello@dacherforge.ai?subject=Хочу%20демо%20Scaramouche" style="font-size:16px;padding:15px 32px">Хочу так же для моих лидов →</a>
+    <p class="muted" style="margin-top:10px">Это интерактивная демонстрация. В Live-режиме результат генерирует настоящий Claude.</p>
+  </div>
+
+  <footer>Scaramouche · Dacher Forge — autonomous AI SDR. Демо-сценарии иллюстративны.</footer>
+</div>
+
+<script>
+"use strict";
+/* ---------------- DEMO DATA (authored, realistic RU B2B) ---------------- */
+var CASES = [
+  {
+    id:"peopleflow", chip:"PeopleFlow · HR-tech 🔥",
+    name:"PeopleFlow", industry:"HR-tech · B2B SaaS",
+    signals:[
+      "🚀 4 открытые вакансии Sales/SDR за 30 дней — расширяют отдел продаж",
+      "💰 Закрыли Seed-раунд ~3 месяца назад",
+      "🧩 Внедрили HubSpot + Amplitude — растят data-driven продажи",
+      "📈 Трафик сайта +40% за квартал"
+    ],
+    enrich:{role:"CRO / Head of Sales (по данным LinkedIn)", size:"~120 сотрудников", stack:"HubSpot, Slack, Amplitude",
+      icp:"Точное попадание в ICP: B2B SaaS, средний бизнес, активный outbound",
+      pains:["Входящие не успевают обрабатывать","Исходящие почти не делают — нет ресурса","Новые SDR выйдут на продуктивность через 2–3 мес"]},
+    qual:{score:87, fit:9, intent:8, timing:9, reach:8, verdict:"🔥 Hot — в работу сейчас", vc:"var(--hot)",
+      reason:"Найм SDR + свежие деньги + растущий outbound = окно прямо сейчас. Агент закрывает их боль (ресурс на исходящие) до того, как новые SDR раскачаются."},
+    outreach:{
+      subject:"Анна, 4 SDR-вакансии — а если без найма?",
+      ru:"Анна, привет! Заметил, что PeopleFlow открыл сразу 4 вакансии в продажи за месяц — явно масштабируете outbound.\n\nПока новые SDR выйдут на продуктивность, пройдёт 2–3 месяца. Мы закрываем этот разрыв: AI-агент уже сегодня находит и квалифицирует лидов и назначает встречи — без найма.\n\nУ похожей SaaS-команды это дало +35 встреч/мес на автопилоте. Покажу за 15 минут, как это выглядело бы на ваших ICP?",
+      en:"Hi Anna! Noticed PeopleFlow opened 4 sales roles in a month — clearly scaling outbound.\n\nNew SDRs take 2–3 months to ramp. We close that gap: an AI agent finds, qualifies and books meetings today — no hiring needed.\n\nA similar SaaS team got +35 meetings/mo on autopilot. Want a 15-min look at how it'd run on your ICP?",
+      followup:"Follow-up +3 дня: короткий кейс с цифрами, если не ответят."},
+    action:"Предложить 20-мин слот (чт 15:00) · создать сделку в CRM (этап Qualified) · напоминание follow-up +3 дня"
+  },
+  {
+    id:"tochka", chip:"Tochka Pay · Fintech",
+    name:"Tochka Pay", industry:"Fintech · Эквайринг/платежи",
+    signals:[
+      "🆕 Запустили эквайринг для маркетплейсов (пресс-релиз ~2 нед назад)",
+      "🌍 Экспансия в 5 новых регионов",
+      "👥 Наняли нового VP Marketing",
+      "⚠️ Сигналов по исходящим продажам мало"
+    ],
+    enrich:{role:"VP Sales (не подтверждён) / VP Marketing (новый)", size:"~300 сотрудников", stack:"Salesforce + кастом",
+      icp:"Хороший профиль, но крупнее ядра ICP; цикл сделки длинный",
+      pains:["Под новый продукт нужен управляемый спрос","Длинный цикл сделки в финтехе","Жёсткие требования к комплаенсу в коммуникациях"]},
+    qual:{score:74, fit:8, intent:7, timing:8, reach:6, verdict:"🟡 Warm — заходить через ценность", vc:"var(--warm)",
+      reason:"Сигналы роста сильные, но продающий ЛПР не подтверждён, а цикл длинный. Стоит заходить через ценность нового продукта, без давления на скорость."},
+    outreach:{
+      subject:"Эквайринг для маркетплейсов — кто уже в очереди?",
+      ru:"Привет! Видел запуск эквайринга для маркетплейсов — сильный ход, поздравляю.\n\nПод новый продукт обычно нужен управляемый поток исходящих к правильным сегментам. AI-агент собирает и квалифицирует ЦА под конкретный оффер и греет до встречи — без расширения штата.\n\nНакидать карту сегментов под этот продукт? Когда удобно 15 минут?",
+      en:"Hi! Saw your marketplace acquiring launch — strong move.\n\nNew products usually need a managed outbound flow to the right segments. The AI agent builds and qualifies your target list for a specific offer and warms it up to a meeting — without adding headcount.\n\nWant me to draft a segment map for this product? When's good for 15 min?",
+      followup:"Follow-up: дозаполнить ЛПР (VP Sales), ретаргет через 2 нед на сигнал активности."},
+    action:"В nurture-секвенцию · дозаполнить ЛПР · пересмотр через 2 недели"
+  },
+  {
+    id:"gdegruz", chip:"ГдеГруз · Логистика ⚪",
+    name:"ГдеГруз", industry:"Логистика · 3PL",
+    signals:[
+      "📑 Участвуют в гос/корп тендерах",
+      "🚚 Расширяют автопарк",
+      "🕸️ Сайт устарел, CRM/интеграций не видно",
+      "🔇 Низкая цифровая зрелость"
+    ],
+    enrich:{role:"Коммерческий директор (телефон в подвале сайта)", size:"~80 сотрудников", stack:"1С, почта, телефон",
+      icp:"На грани ICP — низкая готовность к AI/SaaS",
+      pains:["Продажи через личные связи","Нет системного исходящего","Решения принимают долго, консервативны"]},
+    qual:{score:58, fit:6, intent:5, timing:5, reach:7, verdict:"⚪ Cold — в прогрев, не форсировать", vc:"var(--cold)",
+      reason:"Контакт достижим, но низкая цифровая зрелость и нет сигналов намерения. Агент честно НЕ давит: ставит в долгий прогрев и экономит ваше время на неготовых лидах."},
+    outreach:{
+      subject:"Как 3PL добирают объём вне тендеров",
+      ru:"Здравствуйте! Вижу, ГдеГруз растёт — расширяете автопарк и идёте в тендеры.\n\nМногие 3PL сейчас добирают объём через системный исходящий, а не только тендеры. Поделюсь коротким разбором, как это устроено у коллег по рынку — без обязательств.\n\nСкинуть материал?",
+      en:"Hello! I see GdeGruz is growing — expanding the fleet and going for tenders.\n\nMany 3PLs are now adding volume via systematic outbound, not only tenders. Happy to share a short breakdown of how peers do it — no strings attached.\n\nShould I send it over?",
+      followup:"Не в активную работу. Образовательный nurture раз в месяц; пересмотр при сигнале (новый сайт/CRM/найм в продажи)."},
+    action:"НЕ в активную воронку · ежемесячный образовательный nurture · авто-пересмотр по новому сигналу"
+  }
+];
+
+/* ---------------- helpers ---------------- */
+var $=function(s,r){return (r||document).querySelector(s)};
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+var sleep=function(ms){return new Promise(function(r){setTimeout(r,ms)})};
+function fmt(n){return Math.round(n).toLocaleString('ru-RU')}
+var selected=CASES[0];
+
+/* build chips */
+(function(){
+  var c=$("#chips");
+  CASES.forEach(function(cs,i){
+    var b=document.createElement("button");
+    b.className="chip"+(i===0?" active":"");
+    b.textContent=cs.chip; b.dataset.id=cs.id;
+    b.onclick=function(){selected=cs;$$(".chip").forEach(function(x){x.classList.remove("active")});b.classList.add("active");$("#company").value=""};
+    c.appendChild(b);
+  });
+})();
+
+/* live toggle */
+$("#liveToggle").addEventListener("change",function(){
+  var on=this.checked;
+  $("#liveOpts").classList.toggle("on",on);
+  $("#modeBadge").textContent=on?"Live":"Demo";
+  var k=localStorage.getItem("scrm_key"); if(k)$("#apiKey").value=k;
+});
+$("#apiKey").addEventListener("change",function(){localStorage.setItem("scrm_key",this.value.trim())});
+
+/* stage helpers */
+function stageEl(k){return $('.stage[data-k="'+k+'"]')}
+function setActive(k){var s=stageEl(k);s.classList.add("active");s.classList.remove("done")}
+function setDone(k){var s=stageEl(k);s.classList.remove("active");s.classList.add("done")}
+function resetPipe(){
+  $$(".stage").forEach(function(s){s.classList.remove("active","done");$(".content",s).innerHTML=""});
+}
+function thinking(k){$(".content",stageEl(k)).innerHTML='<span class="thinking"><i></i><i></i><i></i> агент думает…</span>'}
+
+async function typeInto(el,text,sp){
+  el.classList.add("cursor");el.textContent="";
+  for(var i=0;i<text.length;i++){el.textContent+=text[i];if(i%2===0)await sleep(sp||12)}
+  el.classList.remove("cursor");
+}
+
+/* ---------------- render a full result (shared by demo & live) ---------------- */
+async function render(d){
+  // prospecting
+  setActive("prospect");thinking("prospect");await sleep(650);
+  var pc=$(".content",stageEl("prospect"));pc.innerHTML="";
+  var ul=document.createElement("ul");ul.className="sig";pc.appendChild(ul);
+  for(var i=0;i<d.signals.length;i++){var li=document.createElement("li");li.style.animationDelay=(i*.09)+"s";li.textContent=d.signals[i];ul.appendChild(li);await sleep(260)}
+  setDone("prospect");
+
+  // enrichment
+  setActive("enrich");thinking("enrich");await sleep(700);
+  var e=d.enrich;
+  $(".content",stageEl("enrich")).innerHTML=
+    '<dl class="kv"><dt>ЛПР</dt><dd>'+esc(e.role)+'</dd><dt>Размер</dt><dd>'+esc(e.size)+'</dd>'+
+    '<dt>Стек</dt><dd>'+esc(e.stack)+'</dd><dt>ICP-fit</dt><dd>'+esc(e.icp)+'</dd></dl>'+
+    '<div class="pains">'+e.pains.map(function(p){return '<span>⚠ '+esc(p)+'</span>'}).join("")+'</div>';
+  setDone("enrich");
+
+  // qualification
+  setActive("qualify");thinking("qualify");await sleep(750);
+  var q=d.qual;
+  $(".content",stageEl("qualify")).innerHTML=
+    '<div class="qual"><div class="ring" id="ring" style="--rc:'+(q.vc||'var(--violet-500)')+'"><b id="ringn">0</b><small>score</small></div>'+
+    '<div class="bars-q">'+
+      barq("Fit / профиль",q.fit)+barq("Intent / намерение",q.intent)+barq("Timing / момент",q.timing)+barq("Reachability / доступность",q.reach)+
+    '</div></div>'+
+    '<div class="verdict" style="color:'+(q.vc||'var(--violet-300)')+'">'+esc(q.verdict)+'</div>'+
+    '<div class="reason">'+esc(q.reason)+'</div>';
+  // animate ring + bars
+  var ring=$("#ring"),rn=$("#ringn");
+  $$(".barq .f").forEach(function(f,idx){var vals=[q.fit,q.intent,q.timing,q.reach];setTimeout(function(){f.style.width=(vals[idx]*10)+"%"},120+idx*120)});
+  var p=0;var iv=setInterval(function(){p+=2;if(p>=q.score){p=q.score;clearInterval(iv)}ring.style.setProperty("--p",p);rn.textContent=p},14);
+  await sleep(1100);setDone("qualify");
+
+  // outreach
+  setActive("outreach");thinking("outreach");await sleep(650);
+  var o=d.outreach;var cur="ru";
+  $(".content",stageEl("outreach")).innerHTML=
+    '<div class="tabs"><button class="active" data-l="ru">RU</button><button data-l="en">EN</button></div>'+
+    '<button class="copybtn" id="copy">скопировать</button>'+
+    '<div class="mailcard"><div class="mailhead">Тема: <b id="subj"></b></div><div class="mailbody" id="mbody"></div></div>'+
+    '<div class="followup" id="fu"></div>';
+  $("#subj").textContent=o.subject;
+  await typeInto($("#mbody"),o.ru,10);
+  $("#fu").textContent="↻ "+o.followup;
+  $$('.tabs button',stageEl("outreach")).forEach(function(btn){
+    btn.onclick=function(){cur=btn.dataset.l;$$('.tabs button',stageEl("outreach")).forEach(function(x){x.classList.remove("active")});btn.classList.add("active");
+      $("#mbody").textContent=cur==="ru"?o.ru:o.en;}
+  });
+  $("#copy").onclick=function(){var t=(cur==="ru"?o.ru:o.en);navigator.clipboard&&navigator.clipboard.writeText(t);this.textContent="скопировано ✓";var b=this;setTimeout(function(){b.textContent="скопировать"},1500)};
+  setDone("outreach");
+
+  // action
+  setActive("action");thinking("action");await sleep(500);
+  $(".content",stageEl("action")).innerHTML='<div class="action">✅ <div>'+esc(d.action)+'</div></div>';
+  setDone("action");
+
+  $("#roi").style.display="block";$("#cta").style.display="block";calcRoi();
+  $("#roi").scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+function barq(label,v){return '<div class="barq"><div class="l"><span>'+label+'</span><span>'+v+'/10</span></div><div class="t"><div class="f"></div></div></div>'}
+function esc(s){return String(s).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})}
+
+/* ---------------- LIVE: real Claude call ---------------- */
+async function callClaude(company,offer,key,model){
+  var schema={type:"object",properties:{
+    signals:{type:"array",items:{type:"string"}},
+    enrich:{type:"object",properties:{role:{type:"string"},size:{type:"string"},stack:{type:"string"},icp:{type:"string"},pains:{type:"array",items:{type:"string"}}},required:["role","size","stack","icp","pains"]},
+    qual:{type:"object",properties:{score:{type:"integer"},fit:{type:"integer"},intent:{type:"integer"},timing:{type:"integer"},reach:{type:"integer"},verdict:{type:"string"},reason:{type:"string"}},required:["score","fit","intent","timing","reach","verdict","reason"]},
+    outreach:{type:"object",properties:{subject:{type:"string"},ru:{type:"string"},en:{type:"string"},followup:{type:"string"}},required:["subject","ru","en","followup"]},
+    action:{type:"string"}
+  },required:["signals","enrich","qual","outreach","action"]};
+  var sys="Ты — Scaramouche, автономный AI SDR-агент. На входе название компании-лида и оффер продавца. Сделай быстрый пресейл-анализ: 3–5 вероятных сигналов (помечай как гипотезы, не выдумывай точные факты как достоверные), обогащение профиля, ЧЕСТНУЮ квалификацию по 4 осям fit/intent/timing/reach (0–10) и score 0–100 (слабые лиды честно занижай и дисквалифицируй), персональный короткий outreach на русском и английском (4–6 предложений, без воды), и следующее действие. verdict делай как '🔥 Hot' / '🟡 Warm' / '⚪ Cold' с короткой припиской. Тон — деловой, конкретный, без клише.";
+  var usr="Компания-лид: "+company+"\nПродавец предлагает: "+offer+"\nВерни результат строго через инструмент present_lead_analysis.";
+  var res=await fetch("https://api.anthropic.com/v1/messages",{
+    method:"POST",
+    headers:{"content-type":"application/json","x-api-key":key,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},
+    body:JSON.stringify({model:model,max_tokens:1600,system:sys,
+      tools:[{name:"present_lead_analysis",description:"Структурированный результат анализа лида",input_schema:schema}],
+      tool_choice:{type:"tool",name:"present_lead_analysis"},
+      messages:[{role:"user",content:usr}]})
+  });
+  if(!res.ok){var t=await res.text();throw new Error("API "+res.status+": "+t.slice(0,200))}
+  var data=await res.json();
+  var tu=(data.content||[]).find(function(b){return b.type==="tool_use"});
+  if(!tu)throw new Error("Модель не вернула структурированный результат");
+  var d=tu.input;
+  var vc=d.qual.score>=80?"var(--hot)":d.qual.score>=65?"var(--warm)":"var(--cold)";
+  d.qual.vc=vc;
+  return d;
+}
+
+/* ---------------- RUN ---------------- */
+var running=false;
+$("#run").addEventListener("click",async function(){
+  if(running)return;
+  $("#err").textContent="";
+  var live=$("#liveToggle").checked;
+  var typed=$("#company").value.trim();
+  var offer=$("#offer").value.trim()||"B2B-продукт";
+  running=true;this.disabled=true;
+  $("#pipe").classList.add("on");resetPipe();
+  $("#roi").style.display="none";$("#cta").style.display="none";
+  $("#pipe").scrollIntoView({behavior:"smooth",block:"start"});
+
+  try{
+    var d;
+    if(live){
+      var key=$("#apiKey").value.trim();
+      if(!key){throw new Error("Вставьте Anthropic API-ключ для Live-режима (или выключите Live).")}
+      if(!typed){throw new Error("В Live-режиме впишите название компании в поле выше.")}
+      $("#targetName").textContent="· "+typed+" (live)";
+      // light "working" feel before the call resolves
+      setActive("prospect");thinking("prospect");
+      d=await callClaude(typed,offer,key,$("#model").value);
+    }else{
+      // demo: if user typed a custom name, personalize the selected template's name
+      d=JSON.parse(JSON.stringify(selected));
+      if(typed){d.name=typed;
+        d.outreach.subject=d.outreach.subject.replace(d.name,typed);
+      }
+      $("#targetName").textContent="· "+d.name;
+    }
+    if(!live)$("#targetName").textContent="· "+d.name;
+    await render(d);
+  }catch(err){
+    $("#liveOpts").classList.add("on");$("#liveToggle").checked=true;
+    $("#err").textContent="⚠ "+err.message;
+    resetPipe();
+  }finally{
+    running=false;$("#run").disabled=false;
+  }
+});
+
+/* ---------------- ROI ---------------- */
+function calcRoi(){
+  var n=+$("#sdr").value, sal=+$("#sal").value, plan=+$("#plan").value;
+  $("#vSdr").textContent=n;$("#vSal").textContent=fmt(sal);$("#vPlan").textContent=fmt(plan);
+  var team=sal*n*1.3;            // payroll + taxes/overhead
+  var saveMo=team-plan;
+  var saveYr=saveMo*12;
+  $("#teamCost").textContent=fmt(team)+" ₽";
+  $("#planCost").textContent=fmt(plan)+" ₽";
+  $("#save").textContent=(saveYr>=0?"":"−")+fmt(Math.abs(saveYr))+" ₽";
+  $("#save").style.color=saveYr>=0?"":"#fca5a5";
+  $("#payback").textContent=saveMo>0?"< 1 месяца":"—";
+}
+["sdr","sal","plan"].forEach(function(id){var el=$("#"+id);if(el)el.addEventListener("input",calcRoi)});
+calcRoi();
+</script>
+</body>
+</html>
